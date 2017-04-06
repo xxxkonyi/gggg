@@ -1,5 +1,9 @@
 package com.believe.core.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 /**
  * <p> The describe </p>
  *
@@ -7,7 +11,10 @@ package com.believe.core.domain;
  * @version at 2017/4/5 23:19
  * @since 1.0
  */
-public class CustomerAddress extends Domain {
+@Document
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class CustomerAddress extends AbstractEntity {
 
   private String customerId;
   private String realName;

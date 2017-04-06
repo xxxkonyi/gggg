@@ -1,7 +1,7 @@
 package com.believe.utils.http;
 
-import com.believe.shop.utilities.exception.HttpException;
-import com.believe.shop.utilities.json.Jsons;
+import com.believe.exception.HttpException;
+import com.believe.wechat.JsonUtils;
 import com.fasterxml.jackson.databind.JavaType;
 
 import java.io.*;
@@ -145,7 +145,7 @@ public class Http {
   }
 
   public <T> T request(JavaType type) {
-    return Jsons.DEFAULT.fromJson(request(), type);
+    return JsonUtils.DEFAULT.fromJson(request(), type);
   }
 
   private String doPost() {

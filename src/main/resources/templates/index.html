@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>netgloo :: example</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>my thymeleaf page</h1>
+<p>welcome:
+  <span th:text="${userName}?_"></span></p>
+<button class="j-submit">测试</button>
+</body>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/MobileReponsive.js"></script>
+<script>
+  $(function () {
+    var submitUrl = 'api/customer';
+    var data = {
+      "nickName": "tets"
+    };
+    $('.j-submit').on('click', function () {
+      $.ajax({
+        url: submitUrl,
+        type: 'POST',
+        dataType: 'json',
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        data: JSON.stringify(data)
+      }).then(function (data) {
+        alert(data)
+      })
+    });
+  })
+</script>
+</html>

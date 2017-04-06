@@ -1,14 +1,14 @@
 package com.believe.core.repository;
 
-import com.believe.core.domain.Customer;
+import com.believe.core.domain.Manifesto;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
  * <p> The describe </p>
  *
  * @author lixingping
- * @version at 2017/4/5 23:47
+ * @version at 2017/4/6 10:30
  * @since 1.0
  */
-public interface CustomerRepository extends MongoRepository<Customer, String> {
+public interface ManifestoRepository extends MongoRepository<Manifesto, String> {
 }

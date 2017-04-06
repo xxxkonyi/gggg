@@ -1,11 +1,7 @@
 package com.believe.wechat;
 
-import com.believe.shop.wechat.loader.TicketLoader;
-
-import java.util.concurrent.ExecutorService;
-
-import static com.believe.shop.utilities.Preconditions.checkNotNull;
-import static com.believe.shop.utilities.Preconditions.checkNotNullAndEmpty;
+import static com.believe.utils.PreconditionUtils.checkNotBlank;
+import static com.believe.utils.PreconditionUtils.checkNotNull;
 
 /**
  * 微信组件库配置构建器
@@ -22,9 +18,8 @@ public final class WechatBuilder {
    * @return a builder
    */
   public static WechatBuilder newBuilder(String appId, String appSecret) {
-    checkNotNullAndEmpty(appId, "appId");
-    checkNotNullAndEmpty(appSecret, "appSecret");
-
+    checkNotBlank(appId);
+    checkNotBlank(appSecret);
     WechatBuilder builder = new WechatBuilder();
     builder.wechat = new Wechat(appId, appSecret);
     return builder;
@@ -37,7 +32,7 @@ public final class WechatBuilder {
    * @return this
    */
   public WechatBuilder token(String token) {
-    checkNotNullAndEmpty(token, "token");
+    checkNotBlank(token);
     wechat.appToken = token;
     return this;
   }
@@ -49,7 +44,7 @@ public final class WechatBuilder {
    * @return this
    */
   public WechatBuilder msgKey(String msgKey) {
-    checkNotNullAndEmpty(msgKey, "msgKey");
+    checkNotBlank(msgKey);
     wechat.msgKey = msgKey;
     return this;
   }
@@ -61,32 +56,8 @@ public final class WechatBuilder {
    * @return return this
    */
   public WechatBuilder accessTokenLoader(AccessTokenLoader accessTokenLoader) {
-    checkNotNull(accessTokenLoader, "accessTokenLoader can't be null");
+    checkNotNull(accessTokenLoader);
     wechat.tokenLoader = accessTokenLoader;
-    return this;
-  }
-
-  /**
-   * 配置ticket加载器
-   *
-   * @param ticketLoader ticket加载器
-   * @return this
-   */
-  public WechatBuilder ticketLoader(TicketLoader ticketLoader) {
-    checkNotNull(ticketLoader, "ticketLoader can't be null");
-    wechat.ticketLoader = ticketLoader;
-    return this;
-  }
-
-  /**
-   * 设置ExecutorService，用于异步调用
-   *
-   * @param executor 异步执行器
-   * @return this
-   */
-  public WechatBuilder executor(ExecutorService executor) {
-    checkNotNull(executor, "executor can't be null");
-    wechat.executor = executor;
     return this;
   }
 

@@ -10,5 +10,5 @@ package com.believe.core.constant;
 public final class SystemConstant {
 
   public static final Integer CUSTOMER_PRAISE_QUOTA = 10;
-  public static final Integer DELARE_QUOTA = 38;
+  public static final Integer MANIFESTO_QUOTA = 38;
 }

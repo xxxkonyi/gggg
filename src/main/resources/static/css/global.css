@@ -1,0 +1,381 @@
+/*重置样式*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+  width: 100%;
+  height: 100%;
+  font-size: 100px;
+  overflow-x: hidden;
+  overflow: auto;
+  background-color: #fff;
+  line-height: 1.375;
+}
+
+body {
+  -moz-user-select: -moz-none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  max-width: 750px;
+  font-size: 0.24rem;
+  background-color: #fff;
+  font-size: 0.12rem;
+  color: #000;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+input {
+  -webkit-box-sizing: border-box;
+  border: none;
+  outline: none;
+  background: none;
+  font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+}
+
+a, input, lable, button, div {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+a, a:hover, a:visited {
+  text-decoration: none;
+}
+
+.hide {
+  display: none !important;
+}
+
+input::-ms-input-placeholder {
+  color: #aaa;
+}
+
+input::-webkit-input-placeholder {
+  color: #aaa;
+}
+
+a {
+  color: #42df63;
+}
+
+.block {
+  display: block;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.mt {
+  margin-top: .1rem;
+}
+
+.txt-FF9900 {
+  color: #FF9900;
+}
+
+.txt-center {
+  text-align: center;
+}
+
+
+/*btn*/
+
+.btn {
+  display: block;
+  width: 100%;
+  line-height: .4rem;
+  font-size: .16rem;
+  color: #42df63;
+  border: .01rem solid #42df63;
+  background-color: transparent;
+  text-align: center;
+  outline: none;
+}
+
+.btn:active {
+  background-color: #fcfcfc;
+}
+
+.btn.btn-primary {
+  background-color: #42df63;
+  color: #fff;
+}
+
+.btn.btn-primary:active {
+  background-color: #2bca4c;
+}
+
+.top {
+  position: relative;
+  width: 100%;
+  height: 1.3rem;
+  background-image: url(../imgs/top.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.top .logo {
+  position: absolute;
+  top: .1rem;
+  right: .1rem;
+  display: block;
+  width: .6rem;
+}
+
+.main {
+  position: relative;
+  margin-top: -.5rem;
+  padding: 0 .15rem;
+}
+
+.main .head-pic {
+  display: block;
+  width: 1rem;
+  height: 1rem;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.main .head-pic>img {
+  display: block;
+  width: 100%;
+}
+
+.main .head-name {
+  text-align: center;
+  font-size: .14rem;
+  line-height: 2;
+}
+
+.main .content {
+  display: block;
+}
+
+.main .content .pic, .main .content .pic>img {
+  display: block;
+  width: 100%;
+}
+
+.main .content .input {
+  display: block;
+}
+
+.main .content .input > textarea {
+  display: block;
+  width: 100%;
+  height: 1.1rem;
+  box-sizing: border-box;
+  padding: .1rem;
+  border: .01rem solid #f2f2f2;
+  background-color: #fcfcfc;
+  font-size: .14rem;
+  resize: none;
+  outline: none;
+}
+
+.main .content .des {
+  padding: .15rem 0;
+  text-align: center;
+  line-height: 2;
+  font-size: .12rem;
+}
+
+.main .content .declaration {
+  padding-top: .1rem;
+  text-align: center;
+}
+
+.main .content .declaration p {
+  color: #42df63;
+  font-size: .16rem;
+}
+
+.main .content .declaration .good {
+  display: block;
+  margin-top: .1rem;
+  line-height: 2;
+}
+
+.main .content .declaration .good > img {
+  display: block;
+  margin: 0 auto;
+}
+
+.form {
+  display: block;
+}
+
+.form .input {
+  display: block;
+}
+
+.form .input + .input {
+  margin-top: .1rem;
+}
+
+.form .input>input {
+  display: block;
+  width: 100%;
+  height: .4rem;
+  box-sizing: border-box;
+  padding: 0 .1rem;
+  border: .01rem solid #f2f2f2;
+  background-color: #fcfcfc;
+}
+
+.list {
+  padding: 0 .1rem;
+  display: block;
+}
+
+.list >.item {
+  display: -webkit-flex;
+  display: flex;
+  padding: .1rem 0;
+}
+
+.list >.item + .item {
+  border-top: .01rem solid #f2f2f2;
+}
+
+.list >.item .pic {
+  width: .5rem;
+}
+
+.list >.item .pic>.head {
+  display: block;
+  width: 100%;
+  height: .5rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.list >.item .pic>.head >img {
+  display: block;
+  width: 100%;
+}
+
+.list >.item .info {
+  display: block;
+  margin-left: .1rem;
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.list >.item .info .name {
+  font-size: .16rem;
+  color: #000
+}
+
+.list >.item .info .text {
+  margin-top: .05rem;
+  font-size: .14rem;
+  color: #42df63;
+}
+
+.list >.item .info .sub {
+  display: -webkit-flex;
+  display: flex;
+  margin-top: .05rem;
+  line-height: .3rem;
+}
+
+.list >.item .info .sub .time, .list >.item .info .sub .good {
+  -webkit-flex: 1;
+  flex: 1;
+}
+
+.list >.item .info .sub .time {
+  font-size: .12rem;
+  color: #999;
+}
+
+.list >.item .info .sub .good {
+  text-align: right;
+}
+
+.list >.item .info .sub .good>span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.list >.item .info .sub .good>img {
+  display: inline-block;
+  width: .2rem;
+  margin-left: .1rem;
+  vertical-align: text-bottom;
+}
+
+.introduce {
+  text-align: center;
+}
+
+.introduce .static {
+  width: 60%;
+  margin: 0 auto;
+  padding: .2rem;
+}
+
+.introduce img {
+  display: block;
+  max-width: 100%;
+  margin: 0.05rem auto;
+}

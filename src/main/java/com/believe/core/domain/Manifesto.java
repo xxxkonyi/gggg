@@ -2,6 +2,9 @@ package com.believe.core.domain;
 
 import com.believe.exception.ResponseException;
 import com.believe.core.constant.SystemConstant;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Set;
 
@@ -12,12 +15,16 @@ import java.util.Set;
  * @version at 2017/4/5 23:13
  * @since 1.0
  */
-public class Declare extends Domain {
+@Document
+@Data
+@EqualsAndHashCode(callSuper = true)
+public class Manifesto extends AbstractEntity {
 
   private String remark;
 
   /* 宣言人 */
   private String customerId;
+  private String openId;
 
   /* 点赞用户 */
   private Set<String> praiseUsers;
@@ -25,11 +32,11 @@ public class Declare extends Domain {
   /* 点赞次数 */
   private Integer praiseCount;
 
-  public static Declare of(String remark, String customerId) {
-    Declare declare = new Declare();
-    declare.customerId = customerId;
-    declare.remark = remark;
-    return declare;
+  public static Manifesto of(String remark, String customerId) {
+    Manifesto manifesto = new Manifesto();
+    manifesto.customerId = customerId;
+    manifesto.remark = remark;
+    return manifesto;
   }
 
   public boolean beAbleToPraise(String customerId) {
@@ -37,7 +44,7 @@ public class Declare extends Domain {
   }
 
   public boolean beAbleToWinner() {
-    return this.praiseCount >= SystemConstant.DELARE_QUOTA && this.praiseUsers.size() >= SystemConstant.DELARE_QUOTA;
+    return this.praiseCount >= SystemConstant.MANIFESTO_QUOTA && this.praiseUsers.size() >= SystemConstant.MANIFESTO_QUOTA;
   }
 
   public void praise(String praiseCustomerId) {

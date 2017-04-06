@@ -20,8 +20,23 @@
     <commons-codec.version>1.10</commons-codec.version>
     <commons-lang3.version>3.3.2</commons-lang3.version>
     <lombok.version>1.16.6</lombok.version>
-
   </properties>
+
+  <profiles>
+
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
 
   <dependencies>
     <dependency>
