@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>高原之宝 - 填写地址</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+  <meta content="telephone=no" name="format-detection">
+  <link rel="stylesheet" href="css/global.css"/>
+</head>
+<body data-design-width="640">
+<section class="top">
+  <img class="logo" src="imgs/logo.png"/>
+</section>
+<section class="main">
+  <div class="head-pic">
+    <img src="imgs/head.png"/>
+  </div>
+  <div class="head-name">我是xxx</div>
+  <div class="content">
+    <div class="form">
+      <div class="input">
+        <input type="text" name="name" placeholder="请输入您的姓名"/>
+      </div>
+      <div class="input">
+        <input type="text" name="tel" placeholder="请输入您的电话"/>
+      </div>
+      <div class="input">
+        <input type="text" name="address" placeholder="请输入您的收货地址"/>
+      </div>
+      <p class="mt txt-FF9900 txt-center">发货前，我们会与您取得联系，确保地址无误！</p>
+      <div class="mt">
+        <button class="btn btn-primary j-submit">确认</button>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/MobileReponsive.js"></script>
+<script>
+  $(function () {
+    var submitUrl = '';
+    $('.j-submit').on('click', function () {
+      if ($(this).prop('disabled')) {
+        return;
+      }
+      var name = $('input[name="name"]').val();
+      var tel = $('input[name="tel"]').val();
+      var address = $('input[name="address"]').val();
+      if (!name) {
+        alert('请输入您的姓名!');
+        return;
+      }
+      if (!/^1[3456789]\d{9}$/.test(tel)) {
+        alert('请输入正确的电话号码!');
+        return;
+      }
+      if (!address) {
+        alert('请输入地址!');
+        return;
+      }
+      $(this).prop('disabled', true);
+      $.ajax({
+        url: submitUrl,
+        type: 'POST',
+        data: {
+          name: name,
+          tel: tel,
+          address: address
+        }
+      }).then(function (data) {
+        alert(data)
+      })
+    })
+  })
+</script>
+</body>
+</html>

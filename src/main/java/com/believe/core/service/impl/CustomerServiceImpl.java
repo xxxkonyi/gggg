@@ -46,7 +46,12 @@ public class CustomerServiceImpl implements CustomerService {
   }
 
   @Override
-  public CustomerAddress createAddress(CustomerAddress address) {
-    return null;
+  public CustomerAddress createAddress(String customerId, CustomerAddress address) {
+    CustomerAddress newAddress = new CustomerAddress();
+    newAddress.setAddress(address.getAddress());
+    newAddress.setCustomerId(customerId);
+    newAddress.setMobilePhone(address.getMobilePhone());
+    newAddress.setRealName(address.getRealName());
+    return customerAddressRepository.save(newAddress);
   }
 }

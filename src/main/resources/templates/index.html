@@ -1,36 +1,62 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>netgloo :: example</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>高原之宝 - 发起宣言</title>
+<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+<meta content="telephone=no" name="format-detection"/>
+<link rel="stylesheet" href="css/global.css"/>
 </head>
-<body>
-<h1>my thymeleaf page</h1>
-<p>welcome:
-  <span th:text="${userName}?_"></span></p>
-<button class="j-submit">测试</button>
-</body>
+<body data-design-width="640">
+<section class="top">
+  <img class="logo" src="imgs/logo.png"/>
+</section>
+<section class="main">
+  <div class="head-pic">
+    <img src="imgs/head.png"/>
+  </div>
+  <div class="head-name">我是xxx</div>
+  <div class="content">
+    <div class="pic">
+      <img src="imgs/text.jpg"/>
+    </div>
+    <div class="input mt">
+      <textarea class="j-text" placeholder="发表你的宣言吧！不低于10个字！"></textarea>
+    </div>
+    <div class="mt">
+      <button class="btn btn-primary j-submit">开启我的健康宣言</button>
+    </div>
+    <div class="des">
+      <span>已有400个人发表了健康宣言</span>
+      <a class="block" href="declaration.html">去看看吧&gt;&gt;&gt;</a>
+    </div>
+  </div>
+</section>
 <script src="js/jquery-3.1.1.min.js"></script>
 <script src="js/MobileReponsive.js"></script>
 <script>
   $(function () {
-    var submitUrl = 'api/customer';
-    var data = {
-      "nickName": "tets"
-    };
+    var submitUrl = '';
     $('.j-submit').on('click', function () {
+      if ($(this).prop('disabled')) {
+        return;
+      }
+      var data = $('.j-text').val();
+      if (!data && data.length > 10) {
+        alert('请输入不少于10个字的宣言!');
+        return;
+      }
+      $(this).prop('disabled', true);
       $.ajax({
         url: submitUrl,
         type: 'POST',
-        dataType: 'json',
-        headers: {
-          "Content-Type": "application/json;charset=UTF-8"
-        },
-        data: JSON.stringify(data)
+        data: {
+          text: data
+        }
       }).then(function (data) {
         alert(data)
       })
-    });
+    })
   })
 </script>
+</body>
 </html>

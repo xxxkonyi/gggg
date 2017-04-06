@@ -32,10 +32,11 @@ public class Manifesto extends AbstractEntity {
   /* 点赞次数 */
   private Integer praiseCount;
 
-  public static Manifesto of(String remark, String customerId) {
+  public static Manifesto of(String remark, String customerId, String openId) {
     Manifesto manifesto = new Manifesto();
     manifesto.customerId = customerId;
     manifesto.remark = remark;
+    manifesto.openId = openId;
     return manifesto;
   }
 
@@ -48,8 +49,11 @@ public class Manifesto extends AbstractEntity {
   }
 
   public void praise(String praiseCustomerId) {
+    if (praiseCustomerId.equals(this.customerId)) {
+      throw new ResponseException("manifesto.praise.self");
+    }
     if (!beAbleToPraise(praiseCustomerId)) {
-      throw new ResponseException("你已经点过赞了");
+      throw new ResponseException("manifesto.praise.repeat");
     }
     this.praiseUsers.add(praiseCustomerId);
     this.praiseCount++;

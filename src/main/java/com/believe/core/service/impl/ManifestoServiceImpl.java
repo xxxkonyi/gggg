@@ -5,6 +5,8 @@ import com.believe.core.repository.ManifestoRepository;
 import com.believe.core.service.ManifestoService;
 import com.believe.exception.ResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,18 +23,13 @@ public class ManifestoServiceImpl implements ManifestoService {
   private ManifestoRepository manifestoRepository;
 
   @Override
-  public Long count() {
-    return manifestoRepository.count();
-  }
-
-  @Override
   public Manifesto get(String manifestoId) {
     return manifestoRepository.findOne(manifestoId);
   }
 
   @Override
-  public Manifesto createManifesto(String customerId, String remark) {
-    return manifestoRepository.save(Manifesto.of(remark, customerId));
+  public Manifesto createManifesto(String customerId, String openId, String remark) {
+    return manifestoRepository.save(Manifesto.of(remark, customerId, openId));
   }
 
   @Override
@@ -43,4 +40,15 @@ public class ManifestoServiceImpl implements ManifestoService {
     }
     manifesto.praise(praiseCustomerId);
   }
+
+  @Override
+  public Long countManifesto() {
+    return manifestoRepository.count();
+  }
+
+  @Override
+  public Page<Manifesto> findAll(Pageable pageable) {
+    return manifestoRepository.findAll(pageable);
+  }
+
 }

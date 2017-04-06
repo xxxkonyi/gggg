@@ -17,7 +17,12 @@ spring:
         favicon:
             enabled: false
     thymeleaf:
-            mode: HTML5
+            mode: LEGACYHTML5
+
+    devtools:
+    remote:
+      restart:
+        enabled: true
 
     data:
       mongodb:

@@ -19,6 +19,6 @@ public interface CustomerService {
 
   Customer createCustomer(String nickName);
 
-  CustomerAddress createAddress(CustomerAddress address);
+  CustomerAddress createAddress(String customerId, CustomerAddress address);
 
 }

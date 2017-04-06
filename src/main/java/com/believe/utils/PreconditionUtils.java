@@ -17,11 +17,11 @@ import static com.google.common.base.Preconditions.*;
 public final class PreconditionUtils {
 
   public static void checkNotNull(Object target) {
-    checkArgument(null == target, target + "Must be not null");
+    checkArgument(null != target, target + "Must be not null");
   }
 
   public static void checkNotBlank(String target) {
-    checkArgument(StringUtils.isBlank(target), target + "Must be not null");
+    checkArgument(StringUtils.isNotBlank(target), target + " Must be not null");
   }
 
 }

@@ -1,6 +1,8 @@
 package com.believe.core.service;
 
 import com.believe.core.domain.Manifesto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 /**
  * <p> The describe </p>
@@ -11,12 +13,13 @@ import com.believe.core.domain.Manifesto;
  */
 public interface ManifestoService {
 
-  Long count();
-
   Manifesto get(String manifestoId);
 
-  Manifesto createManifesto(String customerId, String remark);
+  Manifesto createManifesto(String customerId, String openId, String remark);
 
   void praiseManifesto(String manifestoId, String praiseCustomerId);
 
+  Long countManifesto();
+
+  Page<Manifesto> findAll(Pageable pageable);
 }
