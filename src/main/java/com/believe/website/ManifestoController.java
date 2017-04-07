@@ -8,14 +8,12 @@ import com.believe.core.service.ManifestoService;
 import com.believe.utils.SessionUtils;
 import com.believe.website.dto.ManifestoDto;
 import com.believe.website.dto.PraiseDto;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * <p> The describe </p>
@@ -36,10 +34,10 @@ public class ManifestoController {
 
   /* 发起宣言 */
   @RequestMapping(value = "/index")
-  public String manifestoView(Model model) {
+  public String manifestoView(@RequestParam(required = false, value = "uid") String uid, Model model) {
     Customer customer = SessionUtils.getCurrentUser();
     if (manifestoService.beforeExist(customer.getOpenId())) {
-      return person(model);
+      return redirectPerson(customer.getOpenId());
     }
     model.addAttribute("totalManifesto", manifestoService.countManifesto());
     return "index";
@@ -48,42 +46,51 @@ public class ManifestoController {
   @RequestMapping(value = "/index", method = RequestMethod.POST)
   public String manifesto(ManifestoDto dto, Model model) {
     Customer customer = SessionUtils.getCurrentUser();
-    manifestoService.createManifesto(customer, dto.getRemark());
-    return person(model);
+    Manifesto manifesto = manifestoService.createManifesto(customer, dto.getRemark());
+    return redirectPerson(customer.getOpenId());
   }
 
   /* 用户收货地址 */
   @RequestMapping(value = "/address")
-  public String addressView() {
+  public String addressView(@RequestParam(required = false, value = "uid") String uid, Model model) {
+    Customer creator = SessionUtils.getCurrentUser();
+    Manifesto manifesto = manifestoService.getByIdentify(creator.getOpenId());
+    model.addAttribute("manifesto", manifesto);
     return "address";
   }
 
   @RequestMapping(value = "/address", method = RequestMethod.POST)
   public String address(CustomerAddress address, Model model) {
-    Customer customer = SessionUtils.getCurrentUser();
-    customerService.createAddress(customer.getId(), address);
-    return person(model);
+    Customer creator = SessionUtils.getCurrentUser();
+    customerService.createAddress(address, creator);
+    return redirectPerson(creator.getOpenId());
   }
 
   /* 我的宣言 */
   @RequestMapping(value = "/person")
-  public String person(Model model) {
+  public String person(@RequestParam(required = false, value = "uid") String uid, Model model) {
     Customer customer = SessionUtils.getCurrentUser();
-    Manifesto manifesto = manifestoService.getByIdentify(customer.getOpenId());
+    Manifesto manifesto = null;
+    if (StringUtils.isNotBlank(uid)) {
+      manifesto = manifestoService.getByIdentify(uid);
+    } else {
+      manifesto = manifestoService.getByIdentify(customer.getOpenId());
+    }
     ManifestoDto dto = null;
     model.addAttribute("totalManifesto", manifestoService.countManifesto());
     if (manifesto == null) {
-      build(false, false, model);
+      build(false, false, true, model);
       dto = ManifestoDto.of(customer);
     } else {
-      build(manifesto.isWined(), manifestoService.beforeExist(customer.getOpenId()), model);
+      build(manifesto.isWined(), manifestoService.beforeExist(customer.getOpenId()), manifesto.getOpenId().equals(customer.getOpenId()), model);
       dto = ManifestoDto.of(manifesto);
     }
     model.addAttribute("manifesto", dto);
     return "person";
   }
 
-  private Model build(Boolean isWined, Boolean existAddress, Model model) {
+  private Model build(Boolean isWined, Boolean existAddress, Boolean isSelf, Model model) {
+    model.addAttribute("isSelf", isSelf);
     model.addAttribute("isWined", isWined);
     model.addAttribute("existAddress", existAddress);
     return model;
@@ -103,6 +110,14 @@ public class ManifestoController {
   @RequestMapping(value = "/declaration")
   public String declarationView() {
     return "declaration";
+  }
+
+  private String redirectPerson(String externalUid) {
+    StringBuilder sb = new StringBuilder("redirect:/auth/person");
+    if (StringUtils.isNotBlank(externalUid)) {
+      sb.append("?uid=").append(externalUid);
+    }
+    return sb.toString();
   }
 
 }

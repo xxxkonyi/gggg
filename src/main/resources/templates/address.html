@@ -14,38 +14,40 @@
 </section>
 <section class="main">
   <div class="head-pic">
-    <img th:src="@{${application.resourceBase}+'imgs/head.png'}"/>
+    <img th:src="${session.currentUser.avatar}"/>
   </div>
-  <div class="head-name">我是xxx</div>
-  <div class="content">
-    <div class="form">
-      <div class="input">
-        <input type="text" name="name" placeholder="请输入您的姓名"/>
-      </div>
-      <div class="input">
-        <input type="text" name="tel" placeholder="请输入您的电话"/>
-      </div>
-      <div class="input">
-        <input type="text" name="address" placeholder="请输入您的收货地址"/>
-      </div>
-      <p class="mt txt-FF9900 txt-center">发货前，我们会与您取得联系，确保地址无误！</p>
-      <div class="mt">
-        <button class="btn btn-primary j-submit">确认</button>
+  <div class="head-name">我是<span th:text="${session.currentUser.nickName}"></span></div>
+  <form id="addressForm" action="/auth/address" method="post">
+    <div class="content">
+      <div class="form">
+        <input type="text" name="manifestoId" hidden="hidden" th:value="${manifesto.id}"/>
+        <div class="input">
+          <input type="text" name="realName" placeholder="请输入您的姓名"/>
+        </div>
+        <div class="input">
+          <input type="text" name="mobilePhone" placeholder="请输入您的电话"/>
+        </div>
+        <div class="input">
+          <input type="text" name="address" placeholder="请输入您的收货地址"/>
+        </div>
+        <p class="mt txt-FF9900 txt-center">发货前，我们会与您取得联系，确保地址无误！</p>
+        <div class="mt">
+          <button class="btn btn-primary j-submit">确认</button>
+        </div>
       </div>
     </div>
-  </div>
+  </form>
 </section>
 <script th:src="@{${application.resourceBase}+'js/jquery-3.1.1.min.js'}"></script>
 <script th:src="@{${application.resourceBase}+'js/MobileReponsive.js'}"></script>
 <script>
   $(function () {
-    var submitUrl = '';
     $('.j-submit').on('click', function () {
       if ($(this).prop('disabled')) {
         return;
       }
-      var name = $('input[name="name"]').val();
-      var tel = $('input[name="tel"]').val();
+      var name = $('input[name="realName"]').val();
+      var tel = $('input[name="mobilePhone"]').val();
       var address = $('input[name="address"]').val();
       if (!name) {
         alert('请输入您的姓名!');
@@ -59,18 +61,8 @@
         alert('请输入地址!');
         return;
       }
+      $("#addressForm").submit();
       $(this).prop('disabled', true);
-      $.ajax({
-        url: submitUrl,
-        type: 'POST',
-        data: {
-          name: name,
-          tel: tel,
-          address: address
-        }
-      }).then(function (data) {
-        alert(data)
-      })
     })
   })
 </script>

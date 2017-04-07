@@ -2,6 +2,7 @@ package com.believe.core.web;
 
 import com.believe.utils.SessionUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +21,11 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     String requestURI = request.getRequestURI();
-    System.out.println(String.format("Current request uri %s ", requestURI));
+    String uid = request.getParameter("uid");
+    if (StringUtils.isNotBlank(uid)) {
+      requestURI = requestURI + "?uid=" + uid;
+    }
+    log.info("Current request uri {} ", requestURI);
     if (!SessionUtils.isAuthenticated()) {
       response.sendRedirect("/wx" + requestURI);
       return false;

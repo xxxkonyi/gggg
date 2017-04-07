@@ -78,10 +78,11 @@ public class ManifestoServiceImpl implements ManifestoService {
       // todo 发送模块 另启动线程执行
       TemplateParam templateParam = TemplateParam.builder()
         .openId(manifesto.getOpenId())
-        .link("/auth/address")
+        .link("auth/address")
         .build();
       wechatSupport.sendWinMessages(templateParam);
     }
+    manifestoRepository.save(manifesto);
     return result;
   }
 

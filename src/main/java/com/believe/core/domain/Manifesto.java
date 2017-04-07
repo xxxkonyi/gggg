@@ -2,6 +2,7 @@ package com.believe.core.domain;
 
 import com.believe.exception.ResponseException;
 import com.believe.core.constant.SystemConstant;
+import com.google.common.collect.Sets;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -40,6 +41,7 @@ public class Manifesto extends AbstractEntity {
     manifesto.remark = remark;
     manifesto.openId = openId;
     manifesto.praiseCount = 0;
+    manifesto.praiseUsers = Sets.newHashSet();
     return manifesto;
   }
 

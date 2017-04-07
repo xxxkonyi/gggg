@@ -1,5 +1,6 @@
 package com.believe.website;
 
+import com.believe.core.constant.SystemConstant;
 import com.believe.core.domain.Customer;
 import com.believe.core.service.CustomerService;
 import com.believe.core.service.impl.WechatSupport;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,11 +38,15 @@ public class WechatController {
   @Autowired
   private CustomerService customerService;
 
-  // person(我的) declaration(全部) index(发起)
   @RequestMapping(value = "/auth/{path}")
-  public String authRequest(@PathVariable String path, Model model) {
-    // 检测Path 参数
+  public String authRequest(@PathVariable String path, @RequestParam(required = false, value = "uid") String uid, HttpServletRequest request, Model model) {
     log.info("Auth request url {} ", path);
+    if (!SystemConstant.AUTH_URL.contains(path)) {
+      return "general";
+    }
+    if (StringUtils.isNotBlank(uid)) {
+      request.getSession().setAttribute("uid", uid);
+    }
     String authUrl = wechatSupport.authUrl(path);
     model.addAttribute("auth_url", authUrl);
     return "auth";
@@ -85,7 +91,12 @@ public class WechatController {
     Customer customer = customerService.updateCustomer(openid, user);
     SessionUtils.setCurrentUser(customer);
     try {
-      response.sendRedirect("/auth/" + state);
+      String redirectUrl = "/auth/" + state;
+      if (null != request.getSession().getAttribute("uid")) {
+        redirectUrl += "?uid=" + request.getSession().getAttribute("uid");
+        request.getSession().removeAttribute("uid");
+      }
+      response.sendRedirect(redirectUrl);
     } catch (IOException e) {
       throw e;
     }

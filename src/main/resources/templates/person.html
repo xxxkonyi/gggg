@@ -27,7 +27,7 @@
         <span id="praiseCount" th:text="${manifesto.praiseCount}">0</span>
       </div>
     </div>
-    <a id="gotoAddress" th:if="${isWined}" href="javascript:;" class="block mt txt-FF9900 txt-center ">恭喜您，获取全脂奶粉一罐
+    <a id="gotoAddress" th:if="${isWined && isSelf}" href="javascript:;" class="block mt txt-FF9900 txt-center ">恭喜您，获取全脂奶粉一罐
       填写收货地址>></a>
     <div class="mt">
       <a th:href="@{/introduce}" class="btn">我也要宣言</a>
