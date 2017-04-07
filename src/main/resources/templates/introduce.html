@@ -5,18 +5,18 @@
   <title>高原之宝 - 全部宣言</title>
   <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
   <meta content="telephone=no" name="format-detection"/>
-  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" th:href="@{${application.resourceBase}+'css/global.css'}"/>
 </head>
 <body data-design-width="640">
 <section class="top">
-  <img class="logo" src="imgs/logo.png">
+  <img class="logo" th:src="@{${application.resourceBase}+'imgs/logo.png'}"/>
 </section>
 <section class="introduce">
   <p class="static">如果你想参加宣言活动
     <br>请长按扫描二维码关注，点击自定义菜单：健康宣言，点击发起宣言，即可参与活动！</p>
-  <img src="imgs/data2.jpg"/>
+  <img th:src="@{${application.resourceBase}+'imgs/data2.jpg'}"/>
 </section>
-<script src="js/jquery-3.1.1.min.js"></script>
-<script src="js/MobileReponsive.js"></script>
+<script th:src="@{${application.resourceBase}+'js/jquery-3.1.1.min.js'}"></script>
+<script th:src="@{${application.resourceBase}+'js/MobileReponsive.js'}"></script>
 </body>
 </html>

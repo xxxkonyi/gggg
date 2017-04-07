@@ -1,6 +1,5 @@
 package com.believe.wechat;
 
-import com.believe.utils.PreconditionUtils;
 import com.believe.wechat.model.User;
 
 import java.util.Map;
@@ -45,6 +44,15 @@ public final class Users extends Component {
     checkNotBlank(accessToken);
     checkNotBlank(openId);
     String url = GET_USER_INFO + accessToken + "&openid=" + openId;
+    Map<String, Object> resp = doGet(url);
+
+    return JsonUtils.DEFAULT.fromJson(JsonUtils.DEFAULT.toJson(resp), User.class);
+  }
+
+  public User getSnsUser(String accessToken, String openId) {
+    checkNotBlank(accessToken);
+    checkNotBlank(openId);
+    String url = GET_SNS_USER_INFO + "access_token=" + accessToken + "&openid=" + openId + "&lang=zh_CN";
     Map<String, Object> resp = doGet(url);
 
     return JsonUtils.DEFAULT.fromJson(JsonUtils.DEFAULT.toJson(resp), User.class);

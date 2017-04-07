@@ -16,6 +16,9 @@ public class ApplicationProperties {
 
   private final WechatProperties wechat = new WechatProperties();
 
+  private String resourceBase;
+  private String winTemplateId;
+
   @Data
   public static class WechatProperties {
     private String appId;

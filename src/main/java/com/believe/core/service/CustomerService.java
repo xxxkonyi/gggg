@@ -4,6 +4,8 @@ import com.believe.core.domain.Customer;
 import com.believe.core.domain.CustomerAddress;
 import com.believe.wechat.model.User;
 
+import java.util.Optional;
+
 /**
  * <p> The describe </p>
  *
@@ -13,9 +15,11 @@ import com.believe.wechat.model.User;
  */
 public interface CustomerService {
 
-  Customer get(String customerId);
+  boolean beforeExistAddress(String openId);
 
-  Customer createCustomer(User user);
+  Optional<Customer> identify(String customerId);
+
+  Customer updateCustomer(String openId, User user);
 
   Customer createCustomer(String nickName);
 

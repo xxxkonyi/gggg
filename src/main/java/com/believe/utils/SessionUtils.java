@@ -15,7 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SessionUtils {
 
-  private static final String CURRENT_USER_KEY = "CURRENT_USER_KEY";
+  private static final String CURRENT_USER_KEY = "currentUser";
 
   public static Customer getCurrentUser() {
     Object obj = RequestContextHolder.getRequestAttributes().getAttribute(CURRENT_USER_KEY, 1);

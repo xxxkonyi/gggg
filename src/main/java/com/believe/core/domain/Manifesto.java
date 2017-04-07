@@ -25,6 +25,8 @@ public class Manifesto extends AbstractEntity {
   /* 宣言人 */
   private String customerId;
   private String openId;
+  private String nickName;
+  private String avatar;
 
   /* 点赞用户 */
   private Set<String> praiseUsers;
@@ -37,7 +39,12 @@ public class Manifesto extends AbstractEntity {
     manifesto.customerId = customerId;
     manifesto.remark = remark;
     manifesto.openId = openId;
+    manifesto.praiseCount = 0;
     return manifesto;
+  }
+
+  public boolean isWined() {
+    return this.praiseCount >= SystemConstant.MANIFESTO_QUOTA;
   }
 
   public boolean beAbleToPraise(String customerId) {

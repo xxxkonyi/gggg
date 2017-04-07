@@ -41,7 +41,11 @@ public final class Bases extends Component {
    * @return 微信授权跳转URL
    */
   public String authUrl(String redirectUrl) {
-    return authUrl(redirectUrl, Boolean.TRUE);
+    return authUrl(redirectUrl, "index", Boolean.TRUE);
+  }
+
+  public String authUrl(String redirectUrl, String state) {
+    return authUrl(redirectUrl, state, Boolean.FALSE);
   }
 
   /**
@@ -51,7 +55,7 @@ public final class Bases extends Component {
    * @param quiet       是否静默: true: 仅获取openId，false: 获取openId和个人信息(需用户手动确认)
    * @return 微信授权跳转URL
    */
-  public String authUrl(String redirectUrl, Boolean quiet) {
+  public String authUrl(String redirectUrl, String state, Boolean quiet) {
     try {
       checkNotBlank(redirectUrl);
       redirectUrl = URLEncoder.encode(redirectUrl, "utf-8");
@@ -61,7 +65,9 @@ public final class Bases extends Component {
         .append(redirectUrl)
         .append("&response_type=code&scope=")
         .append((quiet ? AuthType.BASE.scope() : AuthType.USER_INFO.scope()))
-        .append("&state=1#wechat_redirect")
+        .append("&state=")
+        .append(state)
+        .append("#wechat_redirect")
         .toString();
     } catch (UnsupportedEncodingException e) {
       throw new WechatException(e);

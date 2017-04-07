@@ -1,13 +1,17 @@
 package com.believe.core.service.impl;
 
+import com.believe.core.constant.SystemConstant;
 import com.believe.core.domain.Customer;
 import com.believe.core.domain.CustomerAddress;
 import com.believe.core.repository.CustomerAddressRepository;
 import com.believe.core.repository.CustomerRepository;
 import com.believe.core.service.CustomerService;
 import com.believe.wechat.model.User;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 /**
  * <p> The describe </p>
@@ -26,13 +30,35 @@ public class CustomerServiceImpl implements CustomerService {
   private CustomerAddressRepository customerAddressRepository;
 
   @Override
-  public Customer get(String customerId) {
-    return customerRepository.findOne(customerId);
+  public boolean beforeExistAddress(String openId) {
+    return customerAddressRepository.countByOpenId(openId) > 0;
   }
 
   @Override
-  public Customer createCustomer(User user) {
-    return null;
+  public Optional<Customer> identify(String customerId) {
+    Customer customer = customerRepository.findOne(customerId);
+    if (null == customer) {
+      customer = customerRepository.findByOpenId(customerId);
+    }
+    return Optional.of(customer);
+  }
+
+  @Override
+  public Customer updateCustomer(String openId, User user) {
+    Customer customer = customerRepository.findByOpenId(openId);
+    DateTime now = DateTime.now();
+    if (null == customer) {
+      customer = new Customer();
+      customer.setLastUpdateDate(now);
+      customer.setPraiseQuota(SystemConstant.CUSTOMER_PRAISE_QUOTA);
+    }
+    customer.setOpenId(user.getOpenId());
+    customer.setNickName(user.getNickName());
+    customer.setAvatar(user.getHeadImgUrl());
+    customer.setSex(user.getSex());
+    customer.setCreatedDate(now);
+    customer.updateCount();
+    return customerRepository.save(customer);
   }
 
   //todo test

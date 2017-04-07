@@ -55,6 +55,7 @@ public final class Wechat {
 
   private static final String BASES = "com.believe.wechat.Bases";
   private static final String USERS = "com.believe.wechat.Users";
+  private static final String MESSAGES = "com.believe.wechat.Messages";
 
   private static final AccessTokenLoader DEFAULT_ACCESS_TOKEN_LOADER = new DefaultAccessTokenLoader();
 
@@ -66,6 +67,10 @@ public final class Wechat {
 
   public Users users() {
     return (Users) components.getUnchecked(USERS);
+  }
+
+  public Messages messages() {
+    return (Messages) components.getUnchecked(MESSAGES);
   }
 
   Wechat(String appId, String appSecret) {

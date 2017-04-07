@@ -11,4 +11,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @since 1.0
  */
 public interface CustomerAddressRepository extends MongoRepository<CustomerAddress, String> {
+  Long countByOpenId(String openId);
 }

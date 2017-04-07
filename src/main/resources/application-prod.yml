@@ -9,23 +9,10 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 spring:
-    application:
-        name: marketing
-    profiles:
-        active: #spring.profiles.active#
-    messages:
-        basename: i18n/messages
-    mvc:
-        favicon:
-            enabled: false
-    thymeleaf:
-            mode: LEGACYHTML5
-
     data:
       mongodb:
-        uri: mongodb://127.0.0.1:27017/test
+        uri: mongodb://sf-gyzb-db:27017/sf-gyzb
 
-#mongodb://sf-gyzb-db-18581865951.v2.tenxapp.com:27019/sf-gyzb
 server:
   port: 80
 
@@ -33,9 +20,8 @@ marketing:
   wechat:
       appId: wx7adb909e7786311b
       appSecret: 62207563bdbacc8a026df875fa97b8eb
-      authNotify: http://f3ad6c50.ngrok.io/wx/notifies/auth
-  resourceBase: http://f3ad6c50.ngrok.io/
-  winTemplateId: jn4YganJxPM4ky7hEXTrBBB0tghfaVX2lO_BE-PFN6E
+      authNotify: http://25195f18.ngrok.io/wx/notifies/auth
+  resourceBase: http://wwwww
 
 logging:
   config: classpath:logback.xml

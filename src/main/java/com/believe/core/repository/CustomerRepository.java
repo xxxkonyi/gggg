@@ -11,4 +11,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @since 1.0
  */
 public interface CustomerRepository extends MongoRepository<Customer, String> {
+  Customer findByOpenId(String openId);
 }

@@ -5,39 +5,77 @@
   <title>高原之宝 - 我的宣言</title>
   <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
   <meta content="telephone=no" name="format-detection"/>
-  <link rel="stylesheet" href="css/global.css"/>
+  <link rel="stylesheet" th:href="@{${application.resourceBase}+'css/global.css'}"/>
 </head>
 <body data-design-width="640">
 <section class="top">
-  <img class="logo" src="imgs/logo.png"/>
+  <img class="logo" th:src="@{${application.resourceBase}+'imgs/logo.png'}"/>
 </section>
 <section class="main">
   <div class="head-pic">
-    <img src="imgs/head.png"/>
+    <img th:src="${manifesto.avatar}">
   </div>
-  <div class="head-name">我是xxx</div>
+  <div class="head-name">我是<span th:text="${manifesto.nickName}"></span></div>
   <div class="content">
     <div class="pic">
-      <img src="imgs/text.jpg"/>
+      <img th:src="@{${application.resourceBase}+'imgs/text.jpg'}"/>
     </div>
     <div class="declaration mt">
-      <p>宣言：跟相爱的人，拥有各自的工作，拥有个别共同的爱好，健康快乐的生活在一起！</p>
+      <p th:text="'宣言：' + ${manifesto.remark}"></p>
       <div class="good">
-        <img src="imgs/good.png"/>
-        <span>11</span>
+        <img id="praise" th:src="@{${application.resourceBase}+'imgs/good.png'}">
+        <span id="praiseCount" th:text="${manifesto.praiseCount}">0</span>
       </div>
     </div>
-    <a href="address.html" class="block mt txt-FF9900 txt-center ">恭喜您，获取全脂奶粉一罐 填写收货地址>></a>
+    <a id="gotoAddress" th:if="${isWined}" href="javascript:;" class="block mt txt-FF9900 txt-center ">恭喜您，获取全脂奶粉一罐
+      填写收货地址>></a>
     <div class="mt">
-      <a href="introduce.html" class="btn">我也要宣言</a>
+      <a th:href="@{/introduce}" class="btn">我也要宣言</a>
     </div>
     <div class="des">
-      <span>已有400个人发表了健康宣言</span>
+      <span>已有<span th:text="${totalManifesto}"></span>个人发表了健康宣言</span>
       <a class="block" href="declaration.html">去看看吧>></a>
     </div>
   </div>
 </section>
-<script src="js/jquery-3.1.1.min.js"></script>
-<script src="js/MobileReponsive.js"></script>
+<script th:src="@{${application.resourceBase}+'js/jquery-3.1.1.min.js'}"></script>
+<script th:src="@{${application.resourceBase}+'js/MobileReponsive.js'}"></script>
+<script th:inline="javascript">
+  var existAddress = [[${existAddress}]];
+  var manifestoId = [[${manifesto.manifestoId}]];
+  var praiseCount = [[${manifesto.praiseCount}]];
+
+  $(function () {
+    $("#gotoAddress").bind('click', function () {
+      if (!existAddress) {
+        $(this).href = "/auth/address";
+      } else {
+        alert("您之前已经填写过地址")
+      }
+    });
+
+    $("#praise").bind('click', function () {
+      var data = {"manifestoId": manifestoId}
+      $.ajax({
+        url: '/auth/praise',
+        type: 'POST',
+        dataType: 'json',
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        data: JSON.stringify(data)
+      }).done(function (data, textStatus, jqXHR) {
+          console.log("请求完成", data);
+          $("#praiseCount").val(praiseCount++);
+          alert('点赞成功');
+        })
+        .fail(function (jqXHR, textStatus, error) {
+          console.log("请求失败", jqXHR.responseText);
+          var errorMessage = JSON.parse(jqXHR.responseText);
+          alert(errorMessage.message);
+        })
+    });
+  });
+</script>
 </body>
 </html>

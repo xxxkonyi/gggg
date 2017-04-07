@@ -1,6 +1,8 @@
 package com.believe.core.service;
 
+import com.believe.core.domain.Customer;
 import com.believe.core.domain.Manifesto;
+import com.believe.core.service.dto.PraiseResult;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,11 +15,15 @@ import org.springframework.data.domain.Pageable;
  */
 public interface ManifestoService {
 
+  boolean beforeExist(String openId);
+
+  Manifesto getByIdentify(String identify);
+
   Manifesto get(String manifestoId);
 
-  Manifesto createManifesto(String customerId, String openId, String remark);
+  Manifesto createManifesto(Customer creator, String remark);
 
-  void praiseManifesto(String manifestoId, String praiseCustomerId);
+  PraiseResult praiseManifesto(String manifestoId, String praiseCustomerId);
 
   Long countManifesto();
 

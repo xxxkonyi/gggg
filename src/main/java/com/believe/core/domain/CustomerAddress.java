@@ -16,7 +16,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @EqualsAndHashCode(callSuper = true)
 public class CustomerAddress extends AbstractEntity {
 
+  private String manifestoId;
   private String customerId;
+  private String openId;
   private String realName;
   private String mobilePhone;
   private String address;

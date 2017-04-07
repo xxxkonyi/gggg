@@ -19,4 +19,9 @@ public class InsecureController {
     return "introduce";
   }
 
+  @RequestMapping(value = "/general")
+  public String error() {
+    return "general";
+  }
+
 }

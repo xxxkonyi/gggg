@@ -1,41 +1,42 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>高原之宝 - 发起宣言</title>
-<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
-<meta content="telephone=no" name="format-detection"/>
-<link rel="stylesheet" href="css/global.css"/>
+  <title>高原之宝 - 发起宣言</title>
+  <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
+  <meta content="telephone=no" name="format-detection"/>
+  <link rel="stylesheet" th:href="@{${application.resourceBase}+'css/global.css'}"/>
 </head>
 <body data-design-width="640">
 <section class="top">
-  <img class="logo" src="imgs/logo.png"/>
+  <img class="logo" th:src="@{${application.resourceBase}+'imgs/logo.png'}"/>
 </section>
 <section class="main">
   <div class="head-pic">
-    <img src="imgs/head.png"/>
+    <img th:src="${session.currentUser.avatar}"/>
   </div>
-  <div class="head-name">我是xxx</div>
+  <div class="head-name">我是<span th:text="${session.currentUser.nickName}"></span></div>
   <div class="content">
     <div class="pic">
-      <img src="imgs/text.jpg"/>
+      <img th:src="@{${application.resourceBase}+'imgs/text.jpg'}"/>
     </div>
-    <div class="input mt">
-      <textarea class="j-text" placeholder="发表你的宣言吧！不低于10个字！"></textarea>
-    </div>
-    <div class="mt">
-      <button class="btn btn-primary j-submit">开启我的健康宣言</button>
-    </div>
+    <form id="submitForm" method="post" action="/auth/index">
+      <div class="input mt">
+        <textarea class="j-text" name="remark" placeholder="发表你的宣言吧！不低于10个字！"></textarea>
+      </div>
+      <div class="mt">
+        <button class="btn btn-primary j-submit">开启我的健康宣言</button>
+      </div>
+    </form>
     <div class="des">
-      <span>已有400个人发表了健康宣言</span>
+      <span>已有<span th:text="${totalManifesto}"></span>个人发表了健康宣言</span>
       <a class="block" href="declaration.html">去看看吧&gt;&gt;&gt;</a>
     </div>
   </div>
 </section>
-<script src="js/jquery-3.1.1.min.js"></script>
-<script src="js/MobileReponsive.js"></script>
+<script th:src="@{${application.resourceBase}+'js/jquery-3.1.1.min.js'}"></script>
+<script th:src="@{${application.resourceBase}+'js/MobileReponsive.js'}"></script>
 <script>
   $(function () {
-    var submitUrl = '';
     $('.j-submit').on('click', function () {
       if ($(this).prop('disabled')) {
         return;
@@ -46,15 +47,7 @@
         return;
       }
       $(this).prop('disabled', true);
-      $.ajax({
-        url: submitUrl,
-        type: 'POST',
-        data: {
-          text: data
-        }
-      }).then(function (data) {
-        alert(data)
-      })
+      $("#submitForm").submit();
     })
   })
 </script>

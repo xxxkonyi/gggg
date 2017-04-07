@@ -1,10 +1,8 @@
 package com.believe.core.service.impl;
 
 import com.believe.core.config.ApplicationProperties;
-import com.believe.wechat.Bases;
-import com.believe.wechat.Users;
-import com.believe.wechat.Wechat;
-import com.believe.wechat.WechatBuilder;
+import com.believe.wechat.*;
+import com.believe.wechat.model.TemplateParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,6 +37,23 @@ public class WechatSupport {
 
   public Users users() {
     return wechat.users();
+  }
+
+  public Long sendWinMessages(TemplateParam templateParam) {
+    Messages messages = wechat.messages();
+    templateParam.setLink(applicationProperties.getResourceBase() + templateParam.getLink());
+    return messages.sendTemplate(templateParam.getOpenId(),
+      applicationProperties.getWinTemplateId(),
+      templateParam.getFields(),
+      templateParam.getLink());
+  }
+
+  public Messages messages() {
+    return wechat.messages();
+  }
+
+  public String authUrl(String path) {
+    return bases().authUrl(applicationProperties.getWechat().getAuthNotify(), path);
   }
 
 }
