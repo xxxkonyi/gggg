@@ -11,7 +11,7 @@
 spring:
     data:
       mongodb:
-        uri: mongodb://sf-gyzb-db:27017/sf-gyzb
+        uri: mongodb://sf-gyzb-db:27017/sf-gyzb-test
 
 server:
   port: 80
@@ -21,7 +21,7 @@ marketing:
       appId: wx10ee87d6a796e77c
       appSecret: 8a5404fa7bf49ad6ff8a86d9aea1511a
       authNotify: http://gz.hibake.net/wx/notifies/auth
-  resourceBase: http://gz.hibake.net/
+  resourceBase: http://gz.hibake.net
   winTemplateId: jn4YganJxPM4ky7hEXTrBBB0tghfaVX2lO_BE-PFN6E
 
 logging:
