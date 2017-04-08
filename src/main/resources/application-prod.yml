@@ -20,8 +20,8 @@ marketing:
   wechat:
       appId: wx7adb909e7786311b
       appSecret: 62207563bdbacc8a026df875fa97b8eb
-      authNotify: http://25195f18.ngrok.io/wx/notifies/auth
-  resourceBase: http://wwwww
+      authNotify: http://gy.ihibake.com/wx/notifies/auth
+  resourceBase: http://gy.ihibake.com
   winTemplateId: jn4YganJxPM4ky7hEXTrBBB0tghfaVX2lO_BE-PFN6E
 
 logging:
