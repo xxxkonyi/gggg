@@ -58,13 +58,12 @@ public class Manifesto extends AbstractEntity {
   }
 
   public void praise(String praiseCustomerId) {
-    // todo 解除验证测试
-/*    if (praiseCustomerId.equals(this.customerId)) {
+    if (praiseCustomerId.equals(this.customerId)) {
       throw new ResponseException("manifesto.praise.self");
     }
     if (!beAbleToPraise(praiseCustomerId)) {
       throw new ResponseException("manifesto.praise.repeat");
-    }*/
+    }
     this.praiseUsers.add(praiseCustomerId);
     this.praiseCount++;
   }
