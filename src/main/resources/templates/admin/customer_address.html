@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <script src="../js/jquery-3.1.1.min.js"></script>
+  <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="row">
+  <form method="post" action="/admin/logout">
+    <input class="btn-default" type="submit" value="退出"/>
+  </form>
+</div>
+<div>中奖客户信息</div>
+<div class="row" style="text-align: center">
+  <table>
+    <thead>
+    <tr>
+      <td>姓名</td>
+      <td>手机号</td>
+      <td>地址</td>
+      <td>时间</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="address : ${customerAddressPage.content}">
+      <td th:text="${address.realName}"></td>
+      <td th:text="${address.mobilePhone}"></td>
+      <td th:text="${address.address}"></td>
+      <td th:text="${#calendars.format(address.createdDate,'yyyy-MM-dd')}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+</body>
+</html>
+

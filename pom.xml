@@ -20,6 +20,7 @@
     <commons-codec.version>1.10</commons-codec.version>
     <commons-lang3.version>3.3.2</commons-lang3.version>
     <lombok.version>1.16.6</lombok.version>
+    <docker.image.prefix>sf</docker.image.prefix>
   </properties>
 
   <profiles>
@@ -134,6 +135,84 @@
         <configuration>
           <executable>true</executable>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.4.13</version>
+        <configuration>
+          <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+          <dockerDirectory>src/main/docker</dockerDirectory>
+          <resources>
+            <resource>
+              <targetPath>/</targetPath>
+              <directory>${project.build.directory}</directory>
+              <include>${project.build.finalName}.jar</include>
+            </resource>
+          </resources>
+        </configuration>
+<!--        <executions>
+          <execution>
+            <id>build-image</id>
+            <phase>package</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+            <configuration>
+              <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+              <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+            </configuration>
+          </execution>
+          <execution>
+            <id>push-image</id>
+            <phase>deploy</phase>
+            <goals>
+              <goal>push</goal>
+            </goals>
+            <configuration>
+              <serverId>harbor</serverId>
+              <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+            </configuration>
+          </execution>
+        </executions>-->
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>default-resources</id>
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>target/classes</outputDirectory>
+              <useDefaultDelimiters>false</useDefaultDelimiters>
+              <delimiters>
+                <delimiter>#</delimiter>
+              </delimiters>
+              <resources>
+                <resource>
+                  <directory>src/main/resources/</directory>
+                  <filtering>true</filtering>
+                  <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.yml</include>
+                  </includes>
+                </resource>
+                <resource>
+                  <directory>src/main/resources/</directory>
+                  <filtering>false</filtering>
+                  <excludes>
+                    <exclude>**/*.xml</exclude>
+                    <exclude>**/*.yml</exclude>
+                  </excludes>
+                </resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
