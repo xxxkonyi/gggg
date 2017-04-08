@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.support.MissingServletRequestPartException;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.*;
@@ -53,6 +54,14 @@ public class DefaultExceptionHandler {
     log.error("Http exception:" + ex);
     String message = messageSource.getMessage(ex.getMessageCode(), null, Locale.CHINESE);
     return new ErrorMessage(message, null);
+  }
+
+  @ExceptionHandler(ResponseViewException.class)
+  public ModelAndView handleResponseViewException(ResponseViewException ex) throws IOException {
+    log.error("Http exception:" + ex);
+    ModelAndView view = new ModelAndView(ex.getView());
+    view.addAllObjects(ex.getResult());
+    return view;
   }
 
   @ExceptionHandler(Exception.class)
