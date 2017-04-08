@@ -19,6 +19,8 @@ public class CustomerAddress extends AbstractEntity {
   private String manifestoId;
   private String customerId;
   private String openId;
+  private boolean mark;
+
   private String realName;
   private String mobilePhone;
   private String address;

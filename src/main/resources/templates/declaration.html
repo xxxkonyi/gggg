@@ -12,87 +12,70 @@
   <img class="logo" th:src="@{${application.resourceBase}+'imgs/logo.png'}"/>
 </section>
 <section class="list">
-  <div class="item">
+  <div th:each="manifesto : ${manifestoPage.content}" class="item">
+
     <div class="pic">
       <div class="head">
-        <img th:src="@{${application.resourceBase}+'imgs/head.png'}"/>
+        <img th:src="@{${manifesto.avatar}}"/>
       </div>
     </div>
     <div class="info">
-      <div class="name">张三</div>
-      <div class="text">跟相爱的人，拥有各自的工作，拥有个别共同的爱好，健康快乐的生活在一起！</div>
+      <div th:text="${manifesto.nickName}" class="name">张三</div>
+      <div th:text="${manifesto.remark}" class="text"></div>
       <div class="sub">
-        <div class="time">2017-2-3</div>
-        <div class="good"><span>0</span><img class="j-good" th:src="@{${application.resourceBase}+'imgs/good.png'}"/></div>
-      </div>
-    </div>
-  </div>
-  <div class="item">
-    <div class="pic">
-      <div class="head">
-        <img src="imgs/head.png"/>
-      </div>
-    </div>
-    <div class="info">
-      <div class="name">张三</div>
-      <div class="text">跟相爱的人，拥有各自的工作，拥有个别共同的爱好，健康快乐的生活在一起！</div>
-      <div class="sub">
-        <div class="time">2017-2-3</div>
-        <div class="good"><span>20</span><img class="j-good" src="imgs/good.png"/></div>
-      </div>
-    </div>
-  </div>
-  <div class="item">
-    <div class="pic">
-      <div class="head">
-        <img src="imgs/head.png"/>
-      </div>
-    </div>
-    <div class="info">
-      <div class="name">张三</div>
-      <div class="text">跟相爱的人，拥有各自的工作，拥有个别共同的爱好，健康快乐的生活在一起！</div>
-      <div class="sub">
-        <div class="time">2017-2-3</div>
-        <div class="good"><span>20</span><img class="j-good" src="imgs/good.png"/></div>
-      </div>
-    </div>
-  </div>
-  <div class="item">
-    <div class="pic">
-      <div class="head">
-        <img src="imgs/head.png"/>
-      </div>
-    </div>
-    <div class="info">
-      <div class="name">张三</div>
-      <div class="text">跟相爱的人，拥有各自的工作，拥有个别共同的爱好，健康快乐的生活在一起！</div>
-      <div class="sub">
-        <div class="time">2017-2-3</div>
-        <div class="good"><span>20</span><img class="j-good" src="imgs/good.png"/></div>
+        <div th:text="${#calendars.format(manifesto.createdDate,'yyyy-MM-dd')}" class="time"></div>
+        <div class="good"><span th:text="${manifesto.praiseCount}">0</span>
+          <input name="manifestoId" hidden th:value="${manifesto.id}"/>
+          <img class="j-good" th:src="@{${application.resourceBase}+'imgs/good.png'}"/>
+        </div>
       </div>
     </div>
   </div>
 </section>
 <script th:src="@{${application.resourceBase}+'js/jquery-3.1.1.min.js'}"></script>
 <script th:src="@{${application.resourceBase}+'js/MobileReponsive.js'}"></script>
-<script>
+<script th:src="@{${application.resourceBase}+'js/utils.js'}"></script>
+<script type="text/javascript" th:inline="javascript">
+  var totalPages = [[${manifestoPage.totalPages}]];
   $(function () {
-    var click = 0;
-    $('.list').on('click', '.j-good', function () {
-      if (click >= 10) {
-        alert('最多只能赞10次哦！');
-        return;
-      }
-      click = click + 1;
-      var count = parseInt($(this).prev().text());
-      $(this).prev().text(count + 1);
+    $('.j-good').bind('click', function () {
+      var manifestoId = $(this).prev().val();
+      console.log(manifestoId);
+      var data = {"manifestoId": manifestoId}
       $.ajax({
-        url: submitUrl,
-        type: 'POST'
-      }).then(function (data) {
-        alert(data)
-      })
+        url: '/auth/praise',
+        type: 'POST',
+        dataType: 'json',
+        headers: {
+          "Content-Type": "application/json;charset=UTF-8"
+        },
+        data: JSON.stringify(data),
+        success: function (data) {
+          window.location.reload();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log(jqXHR.status);
+          if (jqXHR.status == 200 || jqXHR.status == 201) {
+            $("#praiseCount").text(praiseCount++);
+            return;
+          }
+          console.log("请求失败", jqXHR.responseText);
+          var errorMessage = JSON.parse(jqXHR.responseText);
+          alert(errorMessage.message);
+        }
+      });
     })
+  });
+  Pagination.init(20, totalPages);
+  $(window).bind('scroll', function () {
+    if ($(document).scrollTop() + $(window).height() >= $(document).height()) {
+      console.log($(document).scrollTop());
+      Pagination.next();
+    }
+    if ($(document).scrollTop() == 0) {
+      console.log($(document).scrollTop());
+      Pagination.prev();
+    }
   });
 </script>
 </body>

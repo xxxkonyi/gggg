@@ -34,7 +34,7 @@
     </div>
     <div class="des">
       <span>已有<span th:text="${totalManifesto}"></span>个人发表了健康宣言</span>
-      <a class="block" href="declaration.html">去看看吧>></a>
+      <a class="block" th:href="@{/auth/declaration}">去看看吧>></a>
     </div>
   </div>
 </section>
@@ -63,17 +63,21 @@
         headers: {
           "Content-Type": "application/json;charset=UTF-8"
         },
-        data: JSON.stringify(data)
-      }).done(function (data, textStatus, jqXHR) {
-          console.log("请求完成", data);
-          $("#praiseCount").val(praiseCount++);
-          alert('点赞成功');
-        })
-        .fail(function (jqXHR, textStatus, error) {
+        data: JSON.stringify(data),
+        success: function (data) {
+          window.location.reload();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.log(jqXHR.status);
+          if (jqXHR.status == 200 || jqXHR.status == 201) {
+            $("#praiseCount").text(praiseCount++);
+            return;
+          }
           console.log("请求失败", jqXHR.responseText);
           var errorMessage = JSON.parse(jqXHR.responseText);
           alert(errorMessage.message);
-        })
+        }
+      });
     });
   });
 </script>

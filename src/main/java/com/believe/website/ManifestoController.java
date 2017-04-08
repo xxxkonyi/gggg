@@ -5,11 +5,14 @@ import com.believe.core.domain.CustomerAddress;
 import com.believe.core.domain.Manifesto;
 import com.believe.core.service.CustomerService;
 import com.believe.core.service.ManifestoService;
+import com.believe.core.service.dto.PraiseResult;
 import com.believe.utils.SessionUtils;
 import com.believe.website.dto.ManifestoDto;
 import com.believe.website.dto.PraiseDto;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,7 +85,7 @@ public class ManifestoController {
       build(false, false, true, model);
       dto = ManifestoDto.of(customer);
     } else {
-      build(manifesto.isWined(), manifestoService.beforeExist(customer.getOpenId()), manifesto.getOpenId().equals(customer.getOpenId()), model);
+      build(manifesto.isWined(), customerService.beforeExistAddress(customer.getOpenId()), manifesto.getOpenId().equals(customer.getOpenId()), model);
       dto = ManifestoDto.of(manifesto);
     }
     model.addAttribute("manifesto", dto);
@@ -100,15 +103,17 @@ public class ManifestoController {
   @RequestMapping(value = "/praise")
   public
   @ResponseBody
-  ResponseEntity<Void> praise(@RequestBody PraiseDto dto) {
+  ResponseEntity<PraiseResult> praise(@RequestBody PraiseDto dto) {
     Customer customer = SessionUtils.getCurrentUser();
-    manifestoService.praiseManifesto(dto.getManifestoId(), customer.getId());
-    return ResponseEntity.ok(null);
+    PraiseResult result = manifestoService.praiseManifesto(dto.getManifestoId(), customer.getId());
+    return ResponseEntity.ok(result);
   }
 
   /*  全部宣言列表 */
   @RequestMapping(value = "/declaration")
-  public String declarationView() {
+  public String declarationView(Pageable pageable, Model model) {
+    Page<Manifesto> manifestoPage = manifestoService.findAll(pageable);
+    model.addAttribute("manifestoPage", manifestoPage);
     return "declaration";
   }
 

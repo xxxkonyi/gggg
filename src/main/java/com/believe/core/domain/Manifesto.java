@@ -54,16 +54,17 @@ public class Manifesto extends AbstractEntity {
   }
 
   public boolean beAbleToWinner() {
-    return this.praiseCount >= SystemConstant.MANIFESTO_QUOTA && this.praiseUsers.size() >= SystemConstant.MANIFESTO_QUOTA;
+    return this.praiseCount == SystemConstant.MANIFESTO_QUOTA && this.praiseUsers.size() >= SystemConstant.MANIFESTO_QUOTA;
   }
 
   public void praise(String praiseCustomerId) {
-    if (praiseCustomerId.equals(this.customerId)) {
+    // todo 解除验证测试
+/*    if (praiseCustomerId.equals(this.customerId)) {
       throw new ResponseException("manifesto.praise.self");
     }
     if (!beAbleToPraise(praiseCustomerId)) {
       throw new ResponseException("manifesto.praise.repeat");
-    }
+    }*/
     this.praiseUsers.add(praiseCustomerId);
     this.praiseCount++;
   }

@@ -14,7 +14,7 @@ import java.util.Set;
 public final class SystemConstant {
 
   // todo 修改配置常量为测试
-  public static final Integer CUSTOMER_PRAISE_QUOTA = 10;
+  public static final Integer CUSTOMER_PRAISE_QUOTA = 1;
   public static final Integer MANIFESTO_QUOTA = 1;
 
   public static final Set<String> AUTH_URL = Sets.newHashSet("index", "declaration", "person", "address");

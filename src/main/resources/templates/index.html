@@ -29,7 +29,7 @@
     </form>
     <div class="des">
       <span>已有<span th:text="${totalManifesto}"></span>个人发表了健康宣言</span>
-      <a class="block" href="declaration.html">去看看吧&gt;&gt;&gt;</a>
+      <a class="block" th:href="@{/auth/declaration}" >去看看吧&gt;&gt;&gt;</a>
     </div>
   </div>
 </section>
