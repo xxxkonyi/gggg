@@ -3,7 +3,7 @@ FROM maven:3.3.9
 ADD / /tmp/build/
 
         #构建应用
-RUN cd /tmp/build && mvn clean install -P test \
+RUN cd /tmp/build && mvn clean install \
         #拷贝编译结果到指定目录
         && mv target/*.jar /app.jar \
         #清理编译痕迹

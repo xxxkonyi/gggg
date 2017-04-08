@@ -11,8 +11,6 @@
 spring:
     application:
         name: marketing
-    profiles:
-        active: #spring.profiles.active#
     messages:
         basename: i18n/messages
     mvc:
