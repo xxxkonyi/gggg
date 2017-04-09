@@ -18,8 +18,8 @@ server:
 
 marketing:
   wechat:
-      appId: wx10ee87d6a796e77c
-      appSecret: 8a5404fa7bf49ad6ff8a86d9aea1511a
+      appId: wx7adb909e7786311b
+      appSecret: 62207563bdbacc8a026df875fa97b8eb
       authNotify: http://gz.hibake.net/wx/notifies/auth
   resourceBase: http://gz.hibake.net/
   winTemplateId: jn4YganJxPM4ky7hEXTrBBB0tghfaVX2lO_BE-PFN6E
