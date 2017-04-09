@@ -11,7 +11,7 @@
 spring:
     data:
       mongodb:
-        uri: mongodb://root:sfdb123@dds-bp1a6dbd87af41b42.mongodb.rds.aliyuncs.com:3717,dds-bp1a6dbd87af41b41.mongodb.rds.aliyuncs.com:3717/sf-gyzb-test?replicaSet=mgset-3138253
+        uri: mongodb://192.168.1.214:27019/sf-gyzb-test
 
 server:
   port: 80
