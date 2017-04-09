@@ -17,6 +17,6 @@ import java.io.Serializable;
 public class PraiseResult implements Serializable {
 
   /*是否获奖*/
-  private boolean isWin;
-  private boolean isSelf;
+  private boolean win;
+  private boolean self;
 }

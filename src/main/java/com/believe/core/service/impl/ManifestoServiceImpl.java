@@ -75,8 +75,8 @@ public class ManifestoServiceImpl implements ManifestoService {
     // 获奖
     if (manifesto.beAbleToWinner()) {
       result = PraiseResult.builder()
-        .isWin(true)
-        .isSelf(praiseCustomerId.equals(manifesto.getCustomerId()))
+        .win(true)
+        .self(praiseCustomerId.equals(manifesto.getCustomerId()))
         .build();
       // todo 发送模块 另启动线程执行
       TemplateParam templateParam = TemplateParam.builder()

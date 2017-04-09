@@ -59,6 +59,23 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-sm-6">
+      </div>
+      <div class="col-sm-6">
+        <div id="dataTables-example_filter" class="dataTables_filter">
+          <div class="col-sm-8">
+            <label><input name="queryInfo" type="search" th:value="${queryInfo}" class="form-control input-sm"
+                          placeholder="手机号"
+                          aria-controls="dataTables-example">
+            </label>
+          </div>
+          <div class="col-sm-2" style="text-align: left">
+            <input id="searchBtn" type="button" class="btn btn-primary input-sm" th:value="搜索">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -121,12 +138,21 @@
 <script src="../js/utils.js"></script>
 <script type="text/javascript" th:inline="javascript">
   var totalPages = [[${customerAddressPage.totalPages}]];
+  var defaultSize = 50;
   $(document).ready(function () {
+    $('#searchBtn').bind('click', function () {
+      var queryInfo = $('input[name=queryInfo]').val();
+      window.location.search = '?queryInfo=' + queryInfo;
+    });
     $('.paginate_a').bind('click', function () {
       var page = parseInt($(this).text());
-      window.location.search = '?page=' + page;
+      var size = getQueryString("size");
+      if (null === size) {
+        size = defaultSize;
+      }
+      window.location.search = '?page=' + page + '&size=' + size;
     });
-    Pagination.init(20, totalPages);
+    Pagination.init(defaultSize, totalPages);
     $('#dataTables-example_previous').bind('click', function () {
       if (Pagination.isTop()) {
         $(this).addClass("disable");

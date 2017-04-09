@@ -57,6 +57,9 @@ public class ManifestoController {
   @RequestMapping(value = "/address")
   public String addressView(@RequestParam(required = false, value = "uid") String uid, Model model) {
     Customer creator = SessionUtils.getCurrentUser();
+    if (customerService.beforeExistAddress(creator.getOpenId())) {
+      return redirectPerson(creator.getOpenId());
+    }
     Manifesto manifesto = manifestoService.getByIdentify(creator.getOpenId());
     model.addAttribute("manifesto", manifesto);
     return "address";
@@ -73,22 +76,25 @@ public class ManifestoController {
   @RequestMapping(value = "/person")
   public String person(@RequestParam(required = false, value = "uid") String uid, Model model) {
     Customer customer = SessionUtils.getCurrentUser();
+    boolean isSelf = StringUtils.isBlank(uid) || uid.equals(customer.getOpenId());
     Manifesto manifesto = null;
-    if (StringUtils.isNotBlank(uid)) {
-      manifesto = manifestoService.getByIdentify(uid);
-    } else {
+    if (isSelf) {
       manifesto = manifestoService.getByIdentify(customer.getOpenId());
-    }
-    ManifestoDto dto = null;
-    model.addAttribute("totalManifesto", manifestoService.countManifesto());
-    if (manifesto == null) {
-      build(false, false, true, model);
-      dto = ManifestoDto.of(customer);
+      if (null == manifesto) {
+        // 我的宣言
+        return "redirect:/auth/index";
+      }
+      build(manifesto.isWined(), customerService.beforeExistAddress(customer.getOpenId()), true, model);
     } else {
-      build(manifesto.isWined(), customerService.beforeExistAddress(customer.getOpenId()), manifesto.getOpenId().equals(customer.getOpenId()), model);
-      dto = ManifestoDto.of(manifesto);
+      manifesto = manifestoService.getByIdentify(uid);
+      if (null == manifesto) {
+        // 全部宣言
+        return "redirect:/auth/declaration";
+      }
+      build(false, false, false, model);
     }
-    model.addAttribute("manifesto", dto);
+    model.addAttribute("totalManifesto", manifestoService.countManifesto());
+    model.addAttribute("manifesto", ManifestoDto.of(manifesto));
     return "person";
   }
 

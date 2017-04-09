@@ -24,7 +24,8 @@
       <div th:text="${manifesto.remark}" class="text"></div>
       <div class="sub">
         <div th:text="${#calendars.format(manifesto.createdDate,'yyyy-MM-dd')}" class="time"></div>
-        <div class="good"><span th:text="${manifesto.praiseCount}">0</span>
+        <div class="good">
+          <span th:text="${manifesto.praiseCount}">0</span>
           <input name="manifestoId" hidden th:value="${manifesto.id}"/>
           <img class="j-good" th:src="@{${application.resourceBase}+'imgs/good.png'}"/>
         </div>
@@ -40,8 +41,8 @@
   $(function () {
     $('.j-good').bind('click', function () {
       var manifestoId = $(this).prev().val();
-      console.log(manifestoId);
-      var data = {"manifestoId": manifestoId}
+      var that = this;
+      var data = {"manifestoId": manifestoId};
       $.ajax({
         url: '/auth/praise',
         type: 'POST',
@@ -51,12 +52,21 @@
         },
         data: JSON.stringify(data),
         success: function (data) {
-          window.location.reload();
+          if (data.code == "ok") {
+            var praiseCount = $(that).prevAll('span').text();
+            $(that).prevAll('span').text(++praiseCount);
+          } else if (data.code == "fail") {
+            console.log(data);
+            if (data.body) {
+              alert(data.body);
+            }
+          }
         },
         error: function (jqXHR, textStatus, errorThrown) {
           console.log(jqXHR.status);
           if (jqXHR.status == 200 || jqXHR.status == 201) {
-            $("#praiseCount").text(praiseCount++);
+            var praiseCount = $(this).prevAll('span').text();
+            $(this).prevAll('span').text(++praiseCount);
             return;
           }
           console.log("请求失败", jqXHR.responseText);
@@ -69,11 +79,9 @@
   Pagination.init(20, totalPages);
   $(window).bind('scroll', function () {
     if ($(document).scrollTop() + $(window).height() >= $(document).height()) {
-      console.log($(document).scrollTop());
       Pagination.next();
     }
     if ($(document).scrollTop() == 0) {
-      console.log($(document).scrollTop());
       Pagination.prev();
     }
   });

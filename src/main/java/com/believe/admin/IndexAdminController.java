@@ -5,12 +5,15 @@ import com.believe.core.domain.CustomerAddress;
 import com.believe.core.repository.CustomerAddressRepository;
 import com.believe.utils.SessionUtils;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -37,9 +40,15 @@ public class IndexAdminController {
   }
 
   @RequestMapping(value = {"/index", "/"})
-  public String index(Pageable pageable, Model model) {
-    Page<CustomerAddress> customerAddressesPage = customerAddressRepository.findAll(pageable);
+  public String index(@RequestParam(required = false, value = "queryInfo") String queryInfo, @PageableDefault(value = 50, page = 0) Pageable pageable, Model model) {
+    Page<CustomerAddress> customerAddressesPage;
+    if (StringUtils.isBlank(queryInfo)) {
+      customerAddressesPage = customerAddressRepository.findAll(pageable);
+    } else {
+      customerAddressesPage = customerAddressRepository.findByMobilePhone(StringUtils.trim(queryInfo), pageable);
+    }
     model.addAttribute("customerAddressPage", customerAddressesPage);
+    model.addAttribute("queryInfo", queryInfo);
     customerAddressesPage.getTotalPages();
     List<Integer> pages = Lists.newArrayList();
     for (int i = 0; i < customerAddressesPage.getTotalPages(); i++) {
