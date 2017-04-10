@@ -22,7 +22,7 @@ marketing:
       appSecret: 62207563bdbacc8a026df875fa97b8eb
       authNotify: http://gz.hibake.net/wx/notifies/auth
   resourceBase: http://gz.hibake.net/
-  winTemplateId: A7DgycUNWbw3uXrKm_lXl_whdBmpQxMppgchoZdkIns
+  winTemplateId: ObJhgQOb__xczaeFsSXv_spPLrpyHSD0p1a6LZGsifo
 
 logging:
   config: classpath:logback.xml
