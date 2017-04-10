@@ -13,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.Executor;
+
 /**
  * <p> The describe </p>
  *
@@ -30,6 +32,9 @@ public class ManifestoServiceImpl implements ManifestoService {
 
   @Autowired
   private WechatSupport wechatSupport;
+
+  @Autowired
+  private Executor executor;
 
   @Override
   public boolean beforeExist(String openId) {
@@ -78,12 +83,13 @@ public class ManifestoServiceImpl implements ManifestoService {
         .win(true)
         .self(praiseCustomerId.equals(manifesto.getCustomerId()))
         .build();
-      // todo 发送模块 另启动线程执行
-      TemplateParam templateParam = TemplateParam.builder()
-        .openId(manifesto.getOpenId())
-        .link("auth/address")
-        .build();
-      wechatSupport.sendWinMessages(templateParam);
+      this.executor.execute(() -> {
+        TemplateParam templateParam = TemplateParam.builder()
+          .openId(manifesto.getOpenId())
+          .link("auth/address")
+          .build();
+        wechatSupport.sendWinMessages(templateParam);
+      });
     }
     manifestoRepository.save(manifesto);
     return result;

@@ -23,7 +23,6 @@ spring:
       mongodb:
         uri: mongodb://127.0.0.1:27017/test
 
-#mongodb://sf-gyzb-db-18581865951.v2.tenxapp.com:27019/sf-gyzb
 server:
   port: 80
 
@@ -31,9 +30,9 @@ marketing:
   wechat:
       appId: wx7adb909e7786311b
       appSecret: 62207563bdbacc8a026df875fa97b8eb
-      authNotify: http://ab5c97c8.ngrok.io/wx/notifies/auth
-  resourceBase: http://192.168.0.100/
-  winTemplateId: jn4YganJxPM4ky7hEXTrBBB0tghfaVX2lO_BE-PFN6E
+      authNotify: http://b971379d.ngrok.io/wx/notifies/auth
+  resourceBase: http://b971379d.ngrok.io/
+  winTemplateId: A7DgycUNWbw3uXrKm_lXl_whdBmpQxMppgchoZdkIns
 
 logging:
   config: classpath:logback.xml

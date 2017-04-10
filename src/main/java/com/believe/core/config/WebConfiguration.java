@@ -1,13 +1,16 @@
 package com.believe.core.config;
 
-import com.believe.core.repository.AdminRepository;
 import com.believe.core.service.impl.AdminServiceImpl;
 import com.believe.core.web.AdminSecurityInterceptor;
 import com.believe.core.web.AuthenticationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import java.util.concurrent.Executor;
 
 /**
  * <p> The describe </p>
@@ -33,6 +36,16 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     registry.addInterceptor(adminSecurityInterceptor)
       .addPathPatterns("/admin/**");
 //      .excludePathPatterns("/admin/login");
+  }
+
+  @Bean(name = "taskExecutor")
+  public Executor asyncExecutor() {
+    ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+    executor.setCorePoolSize(2);
+    executor.setMaxPoolSize(4);
+    executor.setQueueCapacity(10);
+    executor.setThreadNamePrefix("task-executor-");
+    return executor;
   }
 
 }
