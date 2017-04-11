@@ -72,6 +72,18 @@ public class ManifestoController {
   @RequestMapping(value = "/address", method = RequestMethod.POST)
   public String address(CustomerAddress address, Model model) {
     Customer creator = SessionUtils.getCurrentUser();
+    if (StringUtils.isBlank(address.getMobilePhone())) {
+      model.addAttribute("errorMsg", "手机号不能为空");
+      return "address";
+    }
+    if (StringUtils.isBlank(address.getRealName())) {
+      model.addAttribute("errorMsg", "姓名不能为空");
+      return "address";
+    }
+    if (StringUtils.isBlank(address.getAddress())) {
+      model.addAttribute("errorMsg", "地址不能为空");
+      return "address";
+    }
     customerService.createAddress(address, creator);
     return redirectPerson(creator.getOpenId());
   }

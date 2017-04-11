@@ -43,11 +43,14 @@
   $(function () {
     $('.j-submit').bind('click', function () {
       var data = $.trim($('.j-text').val());
+      $("#submitForm").submit();
+/*
       if (data !== "" && data.length > 10) {
         $("#submitForm").submit();
       } else {
         alert('请输入不少于10个字的宣言!');
       }
+*/
     })
   })
 </script>
