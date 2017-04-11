@@ -41,7 +41,7 @@
     alert(errorMsg);
   }
   $(function () {
-    $('.j-submit').on('click', function () {
+    $('.j-submit').bind('click', function () {
       var data = $.trim($('.j-text').val());
       if (data !== "" && data.length > 10) {
         $("#submitForm").submit();
