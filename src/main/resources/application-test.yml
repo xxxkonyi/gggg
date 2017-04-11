@@ -21,7 +21,7 @@ marketing:
       appId: wx7adb909e7786311b
       appSecret: 62207563bdbacc8a026df875fa97b8eb
       authNotify: http://gz.hibake.net/wx/notifies/auth
-      jsNotify: http://gz.hibake.net/
+      jsNotify: http://gz.hibake.net
   resourceBase: http://gz.hibake.net/
   winTemplateId: Wbd2kdMsDndwKu6jB5vo2OrvswBc6mZmdMR3gxAEsW8
 

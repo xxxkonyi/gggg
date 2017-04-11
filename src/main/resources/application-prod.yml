@@ -21,7 +21,7 @@ marketing:
       appId: wxae943129092ea6f3
       appSecret: 9b80d6e222522fb4b7b32a50c5dc2738
       authNotify: http://gaoyuanzhibao.dianchexia.com/wx/notifies/auth
-      jsNotify: http://gaoyuanzhibao.dianchexia.com/
+      jsNotify: http://gaoyuanzhibao.dianchexia.com
   resourceBase: http://gaoyuanzhibao.dianchexia.com/
   winTemplateId: D1DGz3Ru9LsnfFCSF1vQwR9HnbGF8d01unxkHBTS6WU
 

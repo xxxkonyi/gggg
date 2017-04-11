@@ -31,7 +31,7 @@ marketing:
       appId: wx7adb909e7786311b
       appSecret: 62207563bdbacc8a026df875fa97b8eb
       authNotify: http://78df85ab.ngrok.io/wx/notifies/auth
-      jsNotify: http://78df85ab.ngrok.io/
+      jsNotify: http://78df85ab.ngrok.io
   resourceBase: http://78df85ab.ngrok.io/
   winTemplateId: ObJhgQOb__xczaeFsSXv_spPLrpyHSD0p1a6LZGsifo
 
