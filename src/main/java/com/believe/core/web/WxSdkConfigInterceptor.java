@@ -29,10 +29,10 @@ public class WxSdkConfigInterceptor extends HandlerInterceptorAdapter {
     if ("GET".equals(request.getMethod())) {
       String requestURI = request.getRequestURI();
       String query = request.getQueryString();
-      log.info("WxSdk config request uri {} ", requestURI);
       if (StringUtils.isNotBlank(query)) {
         requestURI += "?" + query;
       }
+      log.info("WxSdk config request uri {} ", requestURI);
       Config config = wechatSupport.jsConfig(requestURI);
       modelAndView.addObject("config", config);
     }
