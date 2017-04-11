@@ -24,6 +24,7 @@ public class ApplicationProperties {
     private String appId;
     private String appSecret;
     private String authNotify;
+    private String jsNotify;
   }
 
 }

@@ -1,7 +1,11 @@
 package com.believe.website;
 
+import com.believe.wechat.model.Config;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * <p> The describe </p>
@@ -22,6 +26,15 @@ public class InsecureController {
   @RequestMapping(value = "/general")
   public String error() {
     return "general";
+  }
+
+  @RequestMapping(value = "/config")
+  public @ResponseBody Config getJsSdksConfig(HttpServletRequest request) {
+    request.getRequestURL();
+    System.out.println(request.getRequestURI());
+    System.out.println(request.getRequestURI());
+//    return wechatSupport.jsConfig()
+    return null;
   }
 
 }

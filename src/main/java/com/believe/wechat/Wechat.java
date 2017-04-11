@@ -3,6 +3,8 @@ package com.believe.wechat;
 import com.believe.exception.WechatException;
 import com.believe.utils.Fields;
 import com.believe.utils.http.Http;
+import com.believe.wechat.model.Ticket;
+import com.believe.wechat.model.TicketType;
 import com.fasterxml.jackson.databind.JavaType;
 import com.google.common.base.Strings;
 import com.google.common.cache.CacheBuilder;
@@ -49,6 +51,11 @@ public final class Wechat {
   AccessTokenLoader tokenLoader = DEFAULT_ACCESS_TOKEN_LOADER;
 
   /**
+   * Ticket加载器
+   */
+  TicketLoader ticketLoader = DEFAULT_TICKET_LOADER;
+
+  /**
    * 微信错误码变量
    */
   private final String ERROR_CODE = "errcode";
@@ -56,8 +63,10 @@ public final class Wechat {
   private static final String BASES = "com.believe.wechat.Bases";
   private static final String USERS = "com.believe.wechat.Users";
   private static final String MESSAGES = "com.believe.wechat.Messages";
+  private static final String JSSDKS = "com.believe.wechat.JsSdks";
 
   private static final AccessTokenLoader DEFAULT_ACCESS_TOKEN_LOADER = new DefaultAccessTokenLoader();
+  private static final DefaultTicketLoader DEFAULT_TICKET_LOADER = new DefaultTicketLoader();
 
   private static final JavaType MAP_STRING_OBJ_TYPE = JsonUtils.DEFAULT.createCollectionType(Map.class, String.class, Object.class);
 
@@ -71,6 +80,10 @@ public final class Wechat {
 
   public Messages messages() {
     return (Messages) components.getUnchecked(MESSAGES);
+  }
+
+  public JsSdks js() {
+    return (JsSdks) components.getUnchecked(JSSDKS);
   }
 
   Wechat(String appId, String appSecret) {
@@ -102,6 +115,16 @@ public final class Wechat {
       accessToken = token.getAccessToken();
     }
     return accessToken;
+  }
+
+  String loadTicket(TicketType type) {
+    String ticket = ticketLoader.get(type);
+    if (Strings.isNullOrEmpty(ticket)) {
+      Ticket t = js().getTicket(type);
+      ticketLoader.refresh(t);
+      ticket = t.getTicket();
+    }
+    return ticket;
   }
 
   Map<String, Object> doPost(String url, Map<String, Object> params) {

@@ -1,15 +1,22 @@
 package com.believe.core.service.impl;
 
 import com.believe.core.config.ApplicationProperties;
+import com.believe.utils.PreconditionUtils;
 import com.believe.wechat.*;
+import com.believe.wechat.model.Config;
 import com.believe.wechat.model.TemplateField;
 import com.believe.wechat.model.TemplateParam;
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+
+import static org.apache.commons.lang3.RandomStringUtils.*;
 
 /**
  * <p> The describe </p>
@@ -42,6 +49,14 @@ public class WechatSupport {
     return wechat.users();
   }
 
+  public JsSdks jsSdks() {
+    return wechat.js();
+  }
+
+  public Messages messages() {
+    return wechat.messages();
+  }
+
   public Long sendWinMessages(TemplateParam templateParam) {
     Messages messages = wechat.messages();
     List<TemplateField> templateFields = Lists.newArrayList(
@@ -60,12 +75,13 @@ public class WechatSupport {
       templateParam.getLink());
   }
 
-  public Messages messages() {
-    return wechat.messages();
-  }
-
   public String authUrl(String path) {
     return bases().authUrl(applicationProperties.getWechat().getAuthNotify(), path);
   }
 
+  public Config jsConfig(String url) {
+    PreconditionUtils.checkNotBlank(url);
+    url = applicationProperties.getWechat().getJsNotify() + url;
+    return jsSdks().getConfig(randomAlphanumeric(16), url);
+  }
 }

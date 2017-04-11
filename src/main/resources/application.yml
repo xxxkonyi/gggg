@@ -30,8 +30,9 @@ marketing:
   wechat:
       appId: wx7adb909e7786311b
       appSecret: 62207563bdbacc8a026df875fa97b8eb
-      authNotify: http://b971379d.ngrok.io/wx/notifies/auth
-  resourceBase: http://b971379d.ngrok.io/
+      authNotify: http://a3ca8fd7.ngrok.io/wx/notifies/auth
+      jsNotify: http://a3ca8fd7.ngrok.io/
+  resourceBase: http://a3ca8fd7.ngrok.io/
   winTemplateId: ObJhgQOb__xczaeFsSXv_spPLrpyHSD0p1a6LZGsifo
 
 logging:

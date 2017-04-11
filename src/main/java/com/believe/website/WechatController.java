@@ -4,17 +4,18 @@ import com.believe.core.constant.SystemConstant;
 import com.believe.core.domain.Customer;
 import com.believe.core.service.CustomerService;
 import com.believe.core.service.impl.WechatSupport;
+import com.believe.exception.ResponseException;
+import com.believe.utils.JsonResponseResult;
 import com.believe.utils.SessionUtils;
+import com.believe.website.dto.JsAuthURI;
+import com.believe.wechat.model.Config;
 import com.believe.wechat.model.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +38,18 @@ public class WechatController {
   private WechatSupport wechatSupport;
   @Autowired
   private CustomerService customerService;
+
+  @RequestMapping(value = "/config")
+  public
+  @ResponseBody
+  JsonResponseResult getJsSdksConfig(@RequestBody JsAuthURI uri) {
+    log.info("Js Auth URI request url {} ", uri.getUri());
+    if (StringUtils.isBlank(uri.getUri())) {
+      throw new ResponseException("wx.jssdk.uri.null");
+    }
+    Config config = wechatSupport.jsConfig(uri.getUri());
+    return JsonResponseResult.success(config);
+  }
 
   @RequestMapping(value = "/auth/{path}")
   public String authRequest(@PathVariable String path, @RequestParam(required = false, value = "uid") String uid, HttpServletRequest request, Model model) {
