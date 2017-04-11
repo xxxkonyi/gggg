@@ -46,9 +46,9 @@
       if ($(this).prop('disabled')) {
         return;
       }
-      var name = $('input[name="realName"]').val();
-      var tel = $('input[name="mobilePhone"]').val();
-      var address = $('input[name="address"]').val();
+      var name = $.trim($('input[name="realName"]').val());
+      var tel = $.trim($('input[name="mobilePhone"]').val());
+      var address = $.trim($('input[name="address"]').val());
       if (!name) {
         alert('请输入您的姓名!');
         return;

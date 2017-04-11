@@ -29,7 +29,7 @@
     </form>
     <div class="des">
       <span>已有<span th:text="${totalManifesto}"></span>个人发表了健康宣言</span>
-      <a class="block" th:href="@{/auth/declaration}" >去看看吧&gt;&gt;&gt;</a>
+      <a class="block" th:href="@{/auth/declaration}">去看看吧&gt;&gt;&gt;</a>
     </div>
   </div>
 </section>
@@ -41,7 +41,11 @@
       if ($(this).prop('disabled')) {
         return;
       }
-      var data = $('.j-text').val();
+      var data = $.trim($('.j-text').val());
+      if (data === "") {
+        alert('宣言不能为空');
+        return;
+      }
       if (!data && data.length > 10) {
         alert('请输入不少于10个字的宣言!');
         return;

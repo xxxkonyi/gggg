@@ -46,8 +46,10 @@ public class WechatSupport {
     Messages messages = wechat.messages();
     List<TemplateField> templateFields = Lists.newArrayList(
       new TemplateField("first", "请点击该消息填写地址", "#6bfafa"),
-      new TemplateField("keyword1", "1 件", "#6bfafa"),
-      new TemplateField("keyword2", "高原精装奶粉", "#6bfafa"),
+      new TemplateField("keyword1", "高原精装奶粉", "#6bfafa"),
+      new TemplateField("keyword2", "", "#6bfafa"),
+      new TemplateField("keyword3", "", "#6bfafa"),
+      new TemplateField("keyword4", "", "#6bfafa"),
       new TemplateField("remark", "如果超过时间未填写，视为放弃奖品！", "#6bfafa")
     );
     templateParam.setFields(templateFields);
