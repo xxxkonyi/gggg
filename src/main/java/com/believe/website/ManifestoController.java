@@ -10,7 +10,6 @@ import com.believe.core.service.impl.WechatSupport;
 import com.believe.utils.SessionUtils;
 import com.believe.website.dto.ManifestoDto;
 import com.believe.website.dto.PraiseDto;
-import com.believe.wechat.model.Config;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -115,8 +114,8 @@ public class ManifestoController {
       build(false, false, false, model);
     }
 
-    Config config = wechatSupport.jsConfig(StringUtils.isBlank(uid) ? "auth/person" : "auth/person?uid=" + uid);
-    model.addAttribute("config", config);
+/*    Config config = wechatSupport.jsConfig(StringUtils.isBlank(uid) ? "auth/person" : "auth/person?uid=" + uid);
+    model.addAttribute("config", config);*/
     model.addAttribute("totalManifesto", manifestoService.countManifesto());
     model.addAttribute("manifesto", ManifestoDto.of(manifesto));
     return "person";

@@ -39,7 +39,7 @@ public class WechatController {
   @Autowired
   private CustomerService customerService;
 
-  @RequestMapping(value = "/config")
+  @RequestMapping(value = "/config", method = RequestMethod.POST)
   public
   @ResponseBody
   JsonResponseResult getJsSdksConfig(@RequestBody JsAuthURI uri) {
