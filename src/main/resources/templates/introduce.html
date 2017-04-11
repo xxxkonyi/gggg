@@ -19,61 +19,60 @@
 </section>
 <script th:src="@{${application.resourceBase}+'js/jquery-3.1.1.min.js'}"></script>
 <script th:src="@{${application.resourceBase}+'js/MobileReponsive.js'}"></script>
-<script>
+<script th:inline="javascript">
   // todo web 修改
-  $(window).ready(function () {
-    console.log('页面加载....');
-    $.ajax({
-      url: '/wx/config',
-      type: 'POST',
-      dataType: 'json',
-      headers: {
-        "Content-Type": "application/json;charset=UTF-8"
-      },
-      data: JSON.stringify({"uri": 'introduce'}),
-      success: function (data) {
-        if (data.code == "ok") {
-          if (data.body) {
-            var body = data.body;
-            wx.config({
-              debug: true,
-              appId: body.appId,
-              timestamp: body.timestamp,
-              nonceStr: body.nonceStr,
-              signature: body.signature,
-              jsApiList: ["onMenuShareTimeline"]
-            });
-          }
-        } else if (data.code == "fail") {
-          console.log(data);
-          if (data.body) {
-            alert(data.body);
-          }
-        }
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.log("请求失败", jqXHR.responseText);
-        var errorMessage = JSON.parse(jqXHR.responseText);
-        alert(errorMessage.message);
+  var config = [[${config}]];
+  wx.config({
+    debug: true,
+    appId: config.appId,
+    timestamp: config.timestamp,
+    nonceStr: config.nonceStr,
+    signature: config.signature,
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'chooseImage',
+      'previewImage',
+      'uploadImage',
+      'downloadImage'
+    ]
+  });
+
+  wx.ready(function () {
+    wx.checkJsApi({
+      jsApiList: [
+        'onMenuShareTimeline',
+        'onMenuShareAppMessage'
+      ],
+      success: function (res) {
+        alert(JSON.stringify(res));
       }
     });
-    wx.ready(function () {
-        wx.onMenuShareTimeline({
-          title: 'yyyy', // 分享标题
-          link: 'http://www.baidu.com/', // 分享链接
-          imgUrl: 'xxxx', // 分享图标
-          success: function () {
-            alert("分享成功");
-          },
-          cancel: function () {
-            alert("取消分享");
-          }
-        });
-      })
-    wx.error(function (res) {
-      console.log(res);
+    wx.onMenuShareAppMessage({
+      title: '高原蛋白',
+      desc: '高原之宝高原之宝高原之宝高原之宝 ',
+      link: window.location.href,
+      imgUrl: 'http://www.xzgyzb.com/templets/gyzb/images/logo.gif',
+      trigger: function (res) {
+        console.log(res);
+      },
+      success: function (res) {
+        console.log(res);
+        alert('已分享');
+      },
+      cancel: function (res) {
+        console.log(res);
+        alert('已取消');
+      },
+      fail: function (res) {
+        console.log(res);
+        alert(JSON.stringify(res));
+      }
     });
+  });
 
+  wx.error(function (res) {
+    console.log(res);
   });
 </script>
 </body>
