@@ -6,6 +6,23 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
   <meta content="telephone=no" name="format-detection"/>
   <link rel="stylesheet" th:href="@{${application.resourceBase}+'css/global.css'}"/>
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
+  <script th:inline="javascript">
+    var config = [[${config}]];
+    wx.config({
+      debug: false,
+      appId: config.appId,
+      timestamp: config.timestamp,
+      nonceStr: config.nonceStr,
+      signature: config.signature,
+      jsApiList: [
+        'onMenuShareAppMessage',
+        'onMenuShareTimeline',
+        'onMenuShareQQ',
+        'onMenuShareWeibo'
+      ]
+    });
+  </script>
 </head>
 <body data-design-width="640">
 <section class="top">
@@ -28,8 +45,9 @@
       </div>
     </div>
     <div class="winInfo">
-    <a id="gotoAddress" th:if="${isSelf && isWined}" href="javascript:void(0)" class="block mt txt-FF9900 txt-center ">恭喜您，获取全脂奶粉一罐
-      填写收货地址&gt;&gt;</a>
+      <a id="gotoAddress" th:if="${isSelf && isWined}" href="javascript:void(0)"
+         class="block mt txt-FF9900 txt-center ">恭喜您，获取全脂奶粉一罐
+        填写收货地址&gt;&gt;</a>
     </div>
     <div class="mt">
       <a th:href="@{/introduce}" class="btn">我也要宣言</a>
@@ -42,6 +60,7 @@
 </section>
 <script th:src="@{${application.resourceBase}+'js/jquery-3.1.1.min.js'}"></script>
 <script th:src="@{${application.resourceBase}+'js/MobileReponsive.js'}"></script>
+<script th:src="@{${application.resourceBase}+'js/wx-share.js'}"></script>
 <script th:inline="javascript">
   var existAddress = [[${existAddress}]];
   var manifestoId = [[${manifesto.manifestoId}]];

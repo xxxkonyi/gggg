@@ -1,8 +1,5 @@
 package com.believe.website;
 
-import com.believe.core.service.impl.WechatSupport;
-import com.believe.wechat.model.Config;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,14 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class InsecureController {
 
-  @Autowired
-  private WechatSupport wechatSupport;
-
   /* 我也要宣言 */
   @RequestMapping(value = "/introduce")
   public String introduce(Model model) {
-    Config config = wechatSupport.jsConfig("introduce");
-    model.addAttribute("config", config);
     return "introduce";
   }
 

@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1, user-scalable=no"/>
   <meta content="telephone=no" name="format-detection"/>
   <link rel="stylesheet" th:href="@{${application.resourceBase}+'css/global.css'}"/>
-  <script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"></script>
 </head>
 <body data-design-width="640">
 <section class="top">
@@ -19,61 +18,5 @@
 </section>
 <script th:src="@{${application.resourceBase}+'js/jquery-3.1.1.min.js'}"></script>
 <script th:src="@{${application.resourceBase}+'js/MobileReponsive.js'}"></script>
-<script th:inline="javascript">
-  // todo web 修改
-  var config = [[${config}]];
-  wx.config({
-    debug: true,
-    appId: config.appId,
-    timestamp: config.timestamp,
-    nonceStr: config.nonceStr,
-    signature: config.signature,
-    jsApiList: [
-      'onMenuShareTimeline',
-      'onMenuShareAppMessage',
-      'chooseImage',
-      'previewImage',
-      'uploadImage',
-      'downloadImage'
-    ]
-  });
-
-  wx.ready(function () {
-    wx.checkJsApi({
-      jsApiList: [
-        'onMenuShareTimeline',
-        'onMenuShareAppMessage'
-      ],
-      success: function (res) {
-        alert(JSON.stringify(res));
-      }
-    });
-    wx.onMenuShareAppMessage({
-      title: '高原蛋白',
-      desc: '高原之宝高原之宝高原之宝高原之宝 ',
-      link: window.location.href,
-      imgUrl: 'http://www.xzgyzb.com/templets/gyzb/images/logo.gif',
-      trigger: function (res) {
-        console.log(res);
-      },
-      success: function (res) {
-        console.log(res);
-        alert('已分享');
-      },
-      cancel: function (res) {
-        console.log(res);
-        alert('已取消');
-      },
-      fail: function (res) {
-        console.log(res);
-        alert(JSON.stringify(res));
-      }
-    });
-  });
-
-  wx.error(function (res) {
-    console.log(res);
-  });
-</script>
 </body>
 </html>
