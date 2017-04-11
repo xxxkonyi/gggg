@@ -71,8 +71,8 @@
         data: JSON.stringify(data),
         success: function (data) {
           if (data.code == "ok") {
-            var praiseCount = $(that).prevAll('span').text();
-            $(that).prevAll('span').text(++praiseCount);
+            var praiseCount = parseInt($(that).find('span').text());
+            $(that).find('span').html(++praiseCount);
           } else if (data.code == "fail") {
             console.log(data);
             if (data.body) {
@@ -83,8 +83,8 @@
         error: function (jqXHR, textStatus, errorThrown) {
           console.log(jqXHR.status);
           if (jqXHR.status == 200 || jqXHR.status == 201) {
-            var praiseCount = $(this).prevAll('span').text();
-            $(this).prevAll('span').text(++praiseCount);
+            var praiseCount = parseInt($(that).find('span').text());
+            $(that).find('span').html(++praiseCount);
             return;
           }
           console.log("请求失败", jqXHR.responseText);
