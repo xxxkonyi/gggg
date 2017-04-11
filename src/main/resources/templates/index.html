@@ -38,20 +38,12 @@
 <script>
   $(function () {
     $('.j-submit').on('click', function () {
-      if ($(this).prop('disabled')) {
-        return;
-      }
       var data = $.trim($('.j-text').val());
-      if (data === "") {
-        alert('宣言不能为空');
-        return;
-      }
-      if (!data && data.length > 10) {
+      if (data !== "" && data.length > 10) {
+        $("#submitForm").submit();
+      }else {
         alert('请输入不少于10个字的宣言!');
-        return;
       }
-      $(this).prop('disabled', true);
-      $("#submitForm").submit();
     })
   })
 </script>
