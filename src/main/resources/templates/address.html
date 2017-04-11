@@ -64,26 +64,25 @@
     alert(errorMsg);
   }
   $(function () {
-    $('.j-submit').on('click', function () {
+    $("#addressForm").submit(function () {
       if ($(this).prop('disabled')) {
-        return;
+        return false;
       }
       var name = $.trim($('input[name="realName"]').val());
       var tel = $.trim($('input[name="mobilePhone"]').val());
       var address = $.trim($('input[name="address"]').val());
       if (!name) {
         alert('请输入您的姓名!');
-        return;
+        return false;
       }
       if (!/^1[3456789]\d{9}$/.test(tel)) {
         alert('请输入正确的电话号码!');
-        return;
+        return false;
       }
       if (!address) {
         alert('请输入地址!');
-        return;
+        return false;
       }
-      $("#addressForm").submit();
       $(this).prop('disabled', true);
     })
   })
