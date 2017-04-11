@@ -42,10 +42,10 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
       .addPathPatterns("/admin/**");
 //      .excludePathPatterns("/admin/login");
 
-    WxSdkConfigInterceptor wxSdkConfigInterceptor = new WxSdkConfigInterceptor();
+/*    WxSdkConfigInterceptor wxSdkConfigInterceptor = new WxSdkConfigInterceptor();
     wxSdkConfigInterceptor.setWechatSupport(wechatSupport);
     registry.addInterceptor(wxSdkConfigInterceptor)
-      .excludePathPatterns("/wx/**", "/admin/**", "/error", "/general");
+      .excludePathPatterns("/wx*//**", "/admin*//**", "/error", "/general");*/
   }
 
   @Bean(name = "taskExecutor")
