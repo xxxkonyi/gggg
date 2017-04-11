@@ -49,6 +49,10 @@ public class ManifestoController {
   @RequestMapping(value = "/index", method = RequestMethod.POST)
   public String manifesto(ManifestoDto dto, Model model) {
     Customer customer = SessionUtils.getCurrentUser();
+    if (StringUtils.isBlank(dto.getRemark()) || dto.getRemark().length() < 10) {
+      model.addAttribute("errorMsg", "请输入不少于10个字的宣言!");
+      return "index";
+    }
     Manifesto manifesto = manifestoService.createManifesto(customer, dto.getRemark());
     return redirectPerson(customer.getOpenId());
   }

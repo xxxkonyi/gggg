@@ -35,13 +35,17 @@
 </section>
 <script th:src="@{${application.resourceBase}+'js/jquery-3.1.1.min.js'}"></script>
 <script th:src="@{${application.resourceBase}+'js/MobileReponsive.js'}"></script>
-<script>
+<script th:inline="javascript">
+  var errorMsg = [[${errorMsg}]];
+  if (errorMsg) {
+    alert(errorMsg);
+  }
   $(function () {
     $('.j-submit').on('click', function () {
       var data = $.trim($('.j-text').val());
       if (data !== "" && data.length > 10) {
         $("#submitForm").submit();
-      }else {
+      } else {
         alert('请输入不少于10个字的宣言!');
       }
     })

@@ -11,7 +11,7 @@
 spring:
     data:
       mongodb:
-        uri: mongodb://192.168.1.214:27019/sf-gyzb-test-2
+        uri: mongodb://192.168.1.214:27019/sf-gyzb-test-3
 
 server:
   port: 80
