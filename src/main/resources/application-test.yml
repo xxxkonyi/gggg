@@ -11,7 +11,7 @@
 spring:
     data:
       mongodb:
-        uri: mongodb://192.168.1.214:27019/sf-gyzb-test
+        uri: mongodb://192.168.1.214:27019/sf-gyzb-test-1
 
 server:
   port: 80
@@ -22,7 +22,7 @@ marketing:
       appSecret: 62207563bdbacc8a026df875fa97b8eb
       authNotify: http://gz.hibake.net/wx/notifies/auth
   resourceBase: http://gz.hibake.net/
-  winTemplateId: ObJhgQOb__xczaeFsSXv_spPLrpyHSD0p1a6LZGsifo
+  winTemplateId: Wbd2kdMsDndwKu6jB5vo2OrvswBc6mZmdMR3gxAEsW8
 
 logging:
   config: classpath:logback.xml
