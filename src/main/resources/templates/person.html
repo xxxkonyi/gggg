@@ -91,7 +91,8 @@
                 $('div.winInfo').html('<a id="gotoAddress" href="javascript:void(0)" class="block mt txt-FF9900 txt-center ">恭喜您，获取全脂奶粉一罐 填写收货地址&gt;&gt;</a>');
               }
             }
-            $("#praiseCount").text(++praiseCount);
+            var praiseCount = paseInt($("#praiseCount").html())
+            $("#praiseCount").html(++praiseCount);
           } else if (data.code == "fail") {
             console.log(data);
             if (data.body) {
@@ -101,7 +102,8 @@
         },
         error: function (jqXHR, textStatus, errorThrown) {
           if (jqXHR.status == 200 || jqXHR.status == 201) {
-            $("#praiseCount").text(++praiseCount);
+            var praiseCount = paseInt($("#praiseCount").html())
+            $("#praiseCount").html(++praiseCount);
             return;
           }
           console.log("请求失败", jqXHR.responseText);
