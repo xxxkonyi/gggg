@@ -45,7 +45,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter {
     WxSdkConfigInterceptor wxSdkConfigInterceptor = new WxSdkConfigInterceptor();
     wxSdkConfigInterceptor.setWechatSupport(wechatSupport);
     registry.addInterceptor(wxSdkConfigInterceptor)
-      .excludePathPatterns("/wx/**", "/admin/**", "/error", "/general");
+      .addPathPatterns("/introduce", "/auth/index", "/auth/address", "/auth/person", "/auth/declaration");
   }
 
   @Bean(name = "taskExecutor")
