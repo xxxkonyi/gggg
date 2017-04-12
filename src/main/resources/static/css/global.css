@@ -379,3 +379,12 @@ a {
   max-width: 100%;
   margin: 0.05rem auto;
 }
+.activity {
+    margin-top: 8%;
+    margin-left: 12%;
+}
+
+.activity .item {
+    margin-top: 6%;
+    text-align: left
+}
