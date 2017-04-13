@@ -118,6 +118,7 @@ public class ManifestoController {
     }
 
     Config config = wechatSupport.jsConfig(StringUtils.isBlank(uid) ? "auth/person" : "auth/person?uid=" + uid);
+    model.addAttribute("uid", StringUtils.isBlank(uid) ? customer.getOpenId() : uid);
     model.addAttribute("config", config);
     model.addAttribute("totalManifesto", manifestoService.countManifesto());
     model.addAttribute("manifesto", ManifestoDto.of(manifesto));
