@@ -94,7 +94,7 @@
       });
     })
   });
-  Pagination.init(20, totalPages);
+  Pagination.init(40, totalPages);
   $(window).bind('scroll', function () {
     if ($(document).scrollTop() + $(window).height() >= $(document).height()) {
       Pagination.next();

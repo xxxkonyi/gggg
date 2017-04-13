@@ -15,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -141,7 +143,10 @@ public class ManifestoController {
 
   /*  全部宣言列表 */
   @RequestMapping(value = "/declaration")
-  public String declarationView(Pageable pageable, Model model) {
+  public String declarationView(@PageableDefault(page = 0, size = 40,
+    direction = Sort.Direction.DESC,
+    sort = {"createdDate"}) Pageable pageable, Model model) {
+
     Page<Manifesto> manifestoPage = manifestoService.findAll(pageable);
     model.addAttribute("manifestoPage", manifestoPage);
     return "declaration";
