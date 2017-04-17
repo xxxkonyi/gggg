@@ -69,7 +69,7 @@ public class IndexAdminController {
   public void export(HttpServletResponse response) {
     String[] titles = {"姓名", "手机号", "地址", "创建时间"};
     List contents = customerAddressRepository.findAll().stream().map(AddressDto::of).collect(Collectors.toList());
-    ExcelUtils.export("中奖名单.xlsx", titles, contents, response);
+    ExcelUtils.export("中奖名单.xls", titles, contents, response);
   }
 
 }
