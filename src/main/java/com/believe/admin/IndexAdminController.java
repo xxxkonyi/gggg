@@ -3,6 +3,7 @@ package com.believe.admin;
 import com.believe.core.domain.Admin;
 import com.believe.core.domain.CustomerAddress;
 import com.believe.core.repository.CustomerAddressRepository;
+import com.believe.utils.ExcelUtils;
 import com.believe.utils.SessionUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -15,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p> The describe </p>
@@ -61,5 +64,12 @@ public class IndexAdminController {
 
   @Autowired
   private CustomerAddressRepository customerAddressRepository;
+
+  @RequestMapping("export")
+  public void export(HttpServletResponse response) {
+    String[] titles = {"姓名", "手机号", "地址", "创建时间"};
+    List contents = customerAddressRepository.findAll().stream().map(AddressDto::of).collect(Collectors.toList());
+    ExcelUtils.export("中奖名单.xlsx", titles, contents, response);
+  }
 
 }
